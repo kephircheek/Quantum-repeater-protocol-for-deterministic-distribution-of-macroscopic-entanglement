@@ -1,14 +1,4 @@
-\documentclass[%
-  % preprint,%
-  % aps, %
-  prx,%
-  twocolumn,%
-  preprintnumbers,%
-  amsmath,%
-  amssymb,%
-  superscriptaddress%
-]{revtex4}
-
+\documentclass[12pt]{iopart}
 
 \usepackage{graphicx}% Include figure files
 \usepackage{dcolumn}% Align table columns on decimal point
@@ -17,8 +7,9 @@
 
 \usepackage{xcolor}
 \usepackage{soul}
-\usepackage{amsmath}
-\usepackage{amssymb}
+
+\usepackage{setstack} % IOP's amsmath
+\usepackage{iopams} % IOP's amssymb 
 
 \newcommand{\ket}[1]{\left|#1\right\rangle}
 \newcommand{\kett}[1]{\left.\left|#1\right\rangle\!\right\rangle}
@@ -30,27 +21,18 @@
 
 \begin{document}
 
-%\preprint{APS/123-QED}
-
 \title{Quantum repeater protocol for deterministic distribution of macroscopic entanglement}
 
-\author{Alexey N. Pyrkov}
-\email{pyrkov@icp.ac.ru}
-\affiliation{Federal Research Center of Problems of Chemical Physics and Medicinal Chemistry RAS, Acad. Semenov av. 1, Chernogolovka, Moscow region, Russia, 142432}
+\author{A N Pyrkov$^1$, I D Lazarev$^1$ and Tim Byrnes$^{2, 3, 4, 5}$}
+\address{$^1$ Federal Research Center of Problems of Chemical Physics and Medicinal Chemistry RAS, Acad. Semenov av. 1, Chernogolovka, Moscow region, Russia, 142432}
 
+\address{$^2$New York University Shanghai, 567 West Yangsi Road, Shanghai, 200126, China; NYU-ECNU Institute of Physics at NYU Shanghai, 3663 Zhongshan Road North, Shanghai 200062, China; Shanghai Frontiers Science Center of Artificial Intelligence and Deep Learning, NYU Shanghai, 567 West Yangsi Road, Shanghai, 200126, China.}
+\address{$^3$State Key Laboratory of Precision Spectroscopy, School of Physical and Material Sciences, East China Normal University, Shanghai 200062, China}
+\address{$^4$Center for Quantum and Topological Systems (CQTS), NYUAD Research Institute, New York University Abu Dhabi, UAE.}
+\address{$^5$Department of Physics, New York University, New York, NY 10003, USA}
+\eads{\mailto{pyrkov@icp.ac.ru}, \mailto{tim.byrnes@nyu.edu}}
 
-\author{Ilia D. Lazarev}
-\affiliation{Federal Research Center of Problems of Chemical Physics and Medicinal Chemistry RAS, Acad. Semenov av. 1, Chernogolovka, Moscow region, Russia, 142432}
-
-\author{Tim Byrnes}
-\email{tim.byrnes@nyu.edu}
-\affiliation{New York University Shanghai, 567 West Yangsi Road, Shanghai, 200126, China; NYU-ECNU Institute of Physics at NYU Shanghai, 3663 Zhongshan Road North, Shanghai 200062, China; Shanghai Frontiers Science Center of Artificial Intelligence and Deep Learning, NYU Shanghai, 567 West Yangsi Road, Shanghai, 200126, China.}
-\affiliation{State Key Laboratory of Precision Spectroscopy, School of Physical and Material Sciences, East China Normal University, Shanghai 200062, China}
- \affiliation{Center for Quantum and Topological Systems (CQTS), NYUAD Research Institute, New York University Abu Dhabi, UAE.}
-\affiliation{Department of Physics, New York University, New York, NY 10003, USA}
-
-
-\date{\today}% It is always \today, today,
+\date{}% It is always \today, today,
              %  but any date may be explicitly specified
 
 
@@ -59,11 +41,13 @@ Distributing long-distance entanglement is a fundamental goal that is necessary 
 %\hl{We show that for the shorter magic interaction times the entanglement improves in robustness in the presence of decoherence.}  
 \end{abstract}
 
-%\pacs{03.67.Bg}
-% PACS, the Physics and Astronomy
-                             % Classification Scheme.
-%\keywords{Suggested keywords}%Use showkeys class option if keyword
-                              %display desired
+\noindent{\it Keywords\/}:
+Bose–Einstein condensates, 
+Quantum information, 
+Spin coherent states
+Quantum computing
+
+\submitto{Quantum Science and Technology}
 \maketitle
 
 
@@ -104,7 +88,7 @@ The type of state is considerably more complex than the qubit version due to the
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{network.eps}
+\includegraphics[width=0.8\textwidth]{network.eps}
 \caption{\label{fig1}
 Macroscopic entanglement distribution with qubit ensembles.  (a) Ensembles of qubits are placed at the nodes of a quantum network.  The nearest neighbors of the network are capable of being entangled with a $ S^z S^z $ Hamiltonian, which can generate macroscopic entanglement.  The aim is to create entanglement between distant nodes of the network.  A possible physical implementation is using atomic ensembles placed in cavities connected by an optical fiber, such as discussed in Ref. \cite{pyrkov2013entanglement}. 
 (b) The entanglement distribution protocol.  First the ensembles at each node are polarized in the $ S^x $ direction, thus preparing in the initial state (\ref{initstate}).  Here we write $ | + \rangle^{\otimes N } = | \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} 
@@ -148,9 +132,9 @@ where $ |0\rangle_l $ and $ |1\rangle_l $ denotes the computational states for t
 
 Each ensemble is controlled using total spin operators
 %
-\begin{align}
+\begin{equation}
 S^\gamma = \sum_{l=1}^N \sigma_l^\gamma
-\end{align}
+\end{equation}
 %
 where $\gamma \in\{ x, y, z \} $ and $ \sigma_l^\gamma $ is the Pauli spin operator for the $ l $th qubit within the ensemble.  The spin operations conserve the particle number, and we assume that $ N $ is the same for each ensemble for simplicity. 
 
@@ -163,18 +147,22 @@ Since the spin operators and the initial state are completely symmetric under pa
 %
 where the bosonic creation and annihilation operators $ a, b $ obey commutation relations $[a,a^\dagger]=[b,b^\dagger]=1$. The spin operators are written as
 %
-\begin{align}
-S^x & = a^\dagger b + b^\dagger a \nonumber \\
-S^y & = -i a^\dagger b + i b^\dagger a \nonumber \\
-S^z & = n^a - n^b \nonumber \\
-\hat{N} & = n^a + n^b , 
-\end{align}
+\begin{equation}
+% \begin{aligned}
+\eqalign{%
+S^x & = a^\dagger b + b^\dagger a \\
+S^y & = -i a^\dagger b + i b^\dagger a \\
+S^z & = n^a - n^b \\
+\hat{N} & = n^a + n^b ,
+}
+% \end{aligned}
+\end{equation}
 %
 where the number operators for the two qubit states are defined as $ n^a = a^\dagger a, n^b = b^\dagger b $.  The eigenstates of $ S^z $ operator, which we call the number states, are defined as
 %
-\begin{align}
+\begin{equation}
 | k \rangle = \frac{ (a^\dagger)^k (b^\dagger)^{N-k} }{\sqrt{k! (N-k)!}} | \emptyset \rangle ,
-\end{align}
+\end{equation}
 %
 where $ | \emptyset \rangle $ is the vacuum state.  The eigenvalues are $ S^z |k \rangle = (2k - N) | k \rangle $. A mapping of the number states in the qubit formulation is given in Ref. \cite{byrnes2023multipartite}.  
 
@@ -196,17 +184,17 @@ We consider a chain of $ M $ ensembles prepared in the initial state
 %
 We assume a scenario where the nearest neighbors of the chain can be entangled using a $ S^z S^z $  interaction. More distant pairs cannot be directly entangled.  The Hamiltonian that we will consider in the chain is
 %
-\begin{align}
+\begin{equation}
 H=  \sum_{j=1}^{M-1} (-1)^j n_j^a n_{j+1}^a , 
 \label{mainham}
-\end{align}
+\end{equation}
 %
 where $ j$ labels the  $M $ ensembles. The signs in the Hamiltonian are chosen in this way so that the simplest analytical formulas can be obtained, as shown later.  
  This is the same as a $ S^z S^z $ interaction up to local rotations because
 %
-\begin{align}
+\begin{equation}
 n^a_j n_{j+1}^a = \frac{1}{4} (S^z_j + \hat{N}_j) (S^z_{j+1} + \hat{N}_{j+1} ).  
-\end{align}
+\end{equation}
 
 Numerous proposals for producing a $ S^z S^z $ interaction between qubits have been proposed, particular in the context of atomic ensembles and BECs.  In Ref. \cite{pyrkov2013entanglement} a scheme mediated by photons in an optical fiber was proposed.  This was later adapted to a geometric phase gate \cite{hussain2014geometric}. Another approach is to use spin-dependent forces on neighboring BECs \cite{treutlein2006}.  
 Such an interaction is also produced when one-axis squeezed states are split \cite{Jing_2019}.  This type of entanglement was  experimentally realized in BECs \cite{fadel2018spatial,Colciaghi2023}.  In this paper, we assume that such an interaction can be induced using suitable methods, and the interaction time $ t $ is a controllable parameter. 
@@ -219,19 +207,23 @@ U=\prod^{M-1}_{j=1} e^{- i (-1)^j  n^a_j n^a_{j+1} t} .
 %
 The state after applying the gates is
 %
-\begin{align}
+\begin{equation}
 |\psi_M \rangle = U | \phi_0 \rangle . 
-\end{align}
+\end{equation}
 
 
 
 To understand the type of state that is produced by this interaction, consider first the $ M = 2$ case which gives
 %
-\begin{align}
-|\psi_2 \rangle&=e^{i n^a_1 n^a_{2} t}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{1}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{2}\nonumber\\
+\begin{equation}
+%  \begin{aligned}
+\eqalign{%
+|\psi_2 \rangle&=e^{i n^a_1 n^a_{2} t}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{1}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{2}\\
 &=\frac{1}{\sqrt{2^N}}\sum_{k_1}\sqrt{C_{N}^{k_1}}|k_1\rangle |\frac{e^{i k_1 t} }{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 . 
 \label{M2psi}
-\end{align}
+  }
+% \end{aligned}
+\end{equation}
 %
 As discussed in Ref. \cite{byrnes2013fractality}, this produces a type of entangled state where number states in the first ensemble are correlated with spin coherent states around the equator of the Bloch sphere of the second.  The unitary operation $U $ can be viewed as a conditional rotation of ensemble 2 with an angle dependent on the number state on ensemble 1.   
 %Due to the symmetry between the two ensembles, it is equally possible to write the correlations the reverse way.  
@@ -269,39 +261,39 @@ As discussed in Ref. \cite{byrnes2013fractality}, this produces a type of entang
 
 For a chain of $ M $ ensembles, the wavefunction after the entangling gate is 
 %
-\begin{multline}
-|\psi_M \rangle=\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{k_1,k_3,\ldots,k_{M-1}=0}^{N} \left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
+\begin{eqnarray}\fl
+|\psi_M \rangle=\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{k_1,k_3,\ldots,k_{M-1}=0}^{N} \left( \prod_{i \in \mathrm{odd}} \sqrt{ C^{k_i}_{N}}  \right) \nonumber\\
 \times | k_1 \rangle_1  |\frac{e^{i(k_{1}-k_{3})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | k_3 \rangle_3
-|\frac{e^{i(k_{3}-k_{5})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
+|\frac{e^{i(k_{3}-k_{5})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \nonumber\\
 \dots \otimes  | k_{M-1} \rangle_{M-1} |\frac{e^{ik_{M-1}t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  
 \label{evenpsiM}
-\end{multline}
+\end{eqnarray}
 
 %
-% \begin{multline}
-% |\psi_M \rangle=\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{k_1,k_3,\ldots,k_{M-1}=0}^{N} \left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
+% \begin{eqnarray}\fl
+% |\psi_M \rangle=\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{k_1,k_3,\ldots,k_{M-1}=0}^{N} \left( \prod_{i \in \mathrm{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
 % \times \left( \bigotimes_{j=2,4,\ldots,M-2}|\frac{e^{-4 i(k_{j-1}+k_{j+1})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_j  \right) \\
 % \otimes |\frac{e^{-4 ik_{M-1}t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} \otimes |k_1k_3...k_{M-1}\rangle . 
 % \label{evenpsiM}
-% \end{multline}
+% \end{eqnarray}
 %
 for even $ M $. We have 
 %
-\begin{multline}
-| \psi_M \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N}\left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
+\begin{eqnarray}\fl
+| \psi_M \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N}\left( \prod_{i \in \mathrm{odd}} \sqrt{ C^{k_i}_{N}}  \right) \nonumber\\
 \times | k_1 \rangle_1  |\frac{e^{i(k_{1} - k_{3})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | k_3 \rangle_3
-|\frac{e^{i(k_{3} - k_{5})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
+|\frac{e^{i(k_{3} - k_{5})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \nonumber\\
 \dots \otimes |\frac{e^{i(k_{M-2} - k_{M})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M-1} | k_{M} \rangle_{M} 
 \label{oddpsiM}
-\end{multline}
+\end{eqnarray}
 %
 %
-% \begin{multline}
-% | \psi_M \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N}\left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
+% \begin{eqnarray}\fl
+% | \psi_M \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N}\left( \prod_{i \in \mathrm{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
 % \times \left( \bigotimes_{j=2,4,\ldots,M-1}|\frac{e^{-4 i(k_{j-1}+k_{j+1})t}}{\sqrt{2}}\frac{1}{\sqrt{2}}\rangle\rangle_j 
 %  \right) \otimes |k_1k_3...k_{M}\rangle
 % \label{oddpsiM}
-% \end{multline}
+% \end{eqnarray}
 %
 for $M$ is odd.  In the expressions (\ref{evenpsiM}) and (\ref{oddpsiM}), the odd numbered ensembles are expanded to number states and the remaining ensembles on even sites are conditionally rotated. We note that the wavefunction can be always written in a way such that on adjacent sites, there is a conditional rotation of the ensemble written as a spin coherent state, dependent on the number states on alternating nodes.  Hence the parity of the number of ensembles $ M $ plays important role.  Depending on the parity of $ M $, the last ensemble is written in terms of a spin coherent state or a number state.  Henceforth, we will show expressions for even $ M $ and defer the expressions for odd $ M $ to Appendix \ref{sec:oddMexpressions}. 
 
@@ -314,45 +306,45 @@ for $M$ is odd.  In the expressions (\ref{evenpsiM}) and (\ref{oddpsiM}), the od
 
 Next we perform a measurement of the intermediate ensembles in the $x$-basis.  The measurement operator for this is written 
 %
-\begin{align}
+\begin{equation}
 M_q^{(j)} = | q \rangle^{(x)}_j \langle q |^{(x)}_j ,
 \label{measurementop}
-\end{align}
+\end{equation}
 %
 where the number state in the $ x $-basis is $ | k  \rangle^{(x)} = e^{-iS^y \pi/ 4} | k  \rangle $ and $ q \in [0,N] $ labels the measurement outcome. 
 We note that in conventional entanglement swapping, two qubits from different Bell pairs are measured in the Bell basis to create long-distance entanglement. Such entangled basis measurements are implementable in a photonic context but are less convenient in the context of atomic ensembles.  Here, we perform only local measurements on intermediate nodes such as to transfer the entanglement between the first and last ensembles in the chain.  
 
 Later, we show that it is beneficial to introduce a slight angular offset from the $ x $-axis of the measurement.  For this purpose we perform a equatorial rotation before performing the measurement, given by 
 %
-\begin{align}
+\begin{equation}
 V^{(j)}(\phi)  = e^{i n^a_j \phi} .
 \label{equatorrot}
-\end{align}
+\end{equation}
 %
 Hence the final state is the projected state
 %
-\begin{align}
+\begin{equation}
 | \Psi_{\vec{q}} \rangle = \left( \bigotimes_{j=2}^{M-1} M^{(j)}_{q_j} V^{(j)}(\phi) \right) | \psi_M \rangle  ,
-\end{align}
+\end{equation}
 %
 which is an unnormalized state.  Here we wrote the full set of measurement outcomes of the intermediate ensembles as
 %
-\begin{align}
+\begin{equation}
 \vec{q} = (q_2, q_3, \dots, q_{M-1} ) .
-\end{align}
+\end{equation}
 %
 
 
 
 The final unnormalized state after all the measurements is 
 %
-\begin{multline}
+\begin{eqnarray}\fl
 | \Psi_{\vec{q}} \rangle =\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{ k_1, k_3, \dots, k_{M-1}  = 0}^{N}  \sqrt{ C^{k_1}_{N}} \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right)
-  \\ \times  |k_1\rangle|\frac{e^{i k_{M-1}t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_M 
+  \nonumber\\ \times  |k_1\rangle|\frac{e^{i k_{M-1}t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_M 
 \label{final_even}
-\end{multline}
+\end{eqnarray}
 %
-% \begin{multline*}
+% \begin{eqnarray*}
 % | \Psi_{ \vec{q} } ( \xi ) \rangle 
 % = \frac{ 1 }{ \sqrt{ 2^{ \frac{MN}{2} } } }
 %   \sum_{ k_{ \{odd\} } = 0 }^{N}  
@@ -368,10 +360,10 @@ The final unnormalized state after all the measurements is
 %   \sqrt{ \frac { C^{k_M}_{N} } { 2^N } }  e^{ i k_{M-1} k_{M} t}
 %   | k_M \rangle  
 % \label{final_even}
-% \end{multline*}
+% \end{eqnarray*}
 
 % {\color{teal}
-% \begin{multline}
+% \begin{eqnarray}\fl
 %     \ket{f}_\mathrm{even} 
 %     = \frac{1}{\sqrt{2^{\frac{MN}{2}}}}
 %     \sum_{k_1,k_3,\ldots,k_{M-1}=0}^{N}
@@ -384,20 +376,20 @@ The final unnormalized state after all the measurements is
 %     \times
 %     \ket{k_1}
 %     \kett{\frac{e^{i\xi_{M-1}t}}{\sqrt{2}}, \frac{e^{-i\xi_{M-1}t}}{\sqrt{2}}}
-% \end{multline}
+% \end{eqnarray}
 % }
 %
 where we defined
 %
-\begin{align}
+\begin{equation}
 \Omega_{q}^{(j)} = \left\{
 \begin{array}{cc}
 \langle q |^{(x)} | \frac{e^{i(k_{j-1} - k_{j+1})t + i \phi }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle
- & j \in \text{even} \\
-e^{i k_j \phi} \sqrt{ C^{k_j}_{N} } \langle q|^{(x)} | k_j \rangle &  j \in \text{odd}
+ & j \in \mathrm{even} \\
+e^{i k_j \phi} \sqrt{ C^{k_j}_{N} } \langle q|^{(x)} | k_j \rangle &  j \in \mathrm{odd}
 \end{array}
 \right.   . 
-\end{align}
+\end{equation}
 %
 The explicit expressions for the matrix elements are 
 %
@@ -407,16 +399,16 @@ The explicit expressions for the matrix elements are
 %
 and
 %
-\begin{multline}
-\langle q|^{(x)} | k\rangle=\frac{1}{\sqrt{q!(N-q)!2^N}}\sum^q_{l=0}\sum^{N-q}_{m=0}C^l_q C^m_{N-q}\\
+\begin{eqnarray}\fl
+\langle q|^{(x)} | k\rangle=\frac{1}{\sqrt{q!(N-q)!2^N}}\sum^q_{l=0}\sum^{N-q}_{m=0}C^l_q C^m_{N-q}\nonumber\\
 (-1)^{N-q-m}\sqrt{(l+m)!(N-l-m)!}\delta_{k,l+m}
-\end{multline}
+\end{eqnarray}
 %
 where $\delta_{i,j}$ is Kronecker delta \cite{byrnes2020quantum}. The probability of obtaining this outcome labeled by $ \vec{q} $ is
 %
-\begin{align}
+\begin{equation}
 p_{\vec{q}} = \langle \Psi_{\vec{q}} | \Psi_{\vec{q}} \rangle . 
-\end{align}
+\end{equation}
 
 
 
@@ -445,7 +437,7 @@ p_{\vec{q}} = \langle \Psi_{\vec{q}} | \Psi_{\vec{q}} \rangle .
 % {\color{teal}
 % The state of last qubit is 
 % %
-% \begin{multline}
+% \begin{eqnarray}\fl
 %   \rho_{M_\mathrm{even}}(t)
 %   = \frac{1}{2^{\frac{MN}{2}}}
 %   %\sum\limits_{k_M,\bar k_M}
@@ -468,11 +460,11 @@ p_{\vec{q}} = \langle \Psi_{\vec{q}} | \Psi_{\vec{q}} \rangle .
 %     %\ket{k_M}\bra{\bar k_M}
 %     \kett{\frac{e^{i\xi_{M-1}t}}{\sqrt{2}}, \frac{e^{-i\xi_{M-1}t}}{\sqrt{2}}}
 %     \bbra{\frac{e^{i\bar\xi_{M-1}t}}{\sqrt{2}}, \frac{e^{-i\bar\xi_{M-1}t}}{\sqrt{2}}}
-% \end{multline}
+% \end{eqnarray}
 % %
 % for M is even and 
 % %
-% \begin{multline}
+% \begin{eqnarray}\fl
 %   \rho_{M_\mathrm{odd}}(t)
 %   = \frac{1}{2^{\frac{(M + 1)N}{2}}}
 %   \sum\limits_{k_M,\bar k_M}
@@ -489,7 +481,7 @@ p_{\vec{q}} = \langle \Psi_{\vec{q}} | \Psi_{\vec{q}} \rangle .
 %     \prod\limits_{i, j = 3, 4, \dots, M-2}
 %     \braket{p}{k_i} \braket{p}{k_j}
 %     \ket{k_M}\bra{\bar k_M}
-% \end{multline}
+% \end{eqnarray}
 % for M is odd. 
 % %
 % }
@@ -503,9 +495,9 @@ p_{\vec{q}} = \langle \Psi_{\vec{q}} | \Psi_{\vec{q}} \rangle .
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{entanglement}
+    \includegraphics[width=0.8\textwidth]{entanglement}
     \caption{Entanglement as measured by von Neumann entropy (\ref{entropy})  between the first and last nodes of the chain, after projecting out the intermediate ensembles. The states used are (\ref{final_even}) for even $ M $ and (\ref{final_odd}) for odd $ M $.  The measurement outcome $ q_j = N $ is used for all curves with offset angle $ \phi = 0 $.  The interaction time $ t $ is with respect to the Hamiltonian (\ref{mainham}) and different lines show various chain lengths $ M $. Each ensemble has $ N = 20 $ bosons. }
     \label{fig:entanglement}
 \end{figure}
@@ -526,7 +518,7 @@ E=-\sum^{N}_{l=0} \lambda_l \log_2 \lambda_l ,
 where $\lambda_l$ are the eigenvalues of the density matrix
 %
 \begin{equation}
-\rho_M = \frac{\text{Tr}_1  |\Psi_{\vec{q}} \rangle\langle\Psi_{\vec{q}} |}{p_{\vec{q}}} =
+\rho_M = \frac{\mathrm{Tr}_1  |\Psi_{\vec{q}} \rangle\langle\Psi_{\vec{q}} |}{p_{\vec{q}}} =
 \frac{1}{p_{\vec{q}}} \sum^N_{k_1=0} \langle k_1|\Psi_{\vec{q}} \rangle\langle \Psi_{\vec{q}} |k_1\rangle . 
 \label{rhom}
 \end{equation}
@@ -542,12 +534,12 @@ An important question is the performance with scaling the protocol with chain le
 
 To understand the nature of the state that is generated at the magic times,  we evaluate the fidelity with respect to the $ M = 2$ state wavefunction given by (\ref{M2psi}). The fidelity is given by 
 %
-\begin{multline}
-F = \frac{| \langle  \psi_2 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}}}  = \frac{1}{2^{N(M+2)/2} p_{\vec{q}} } \\
+\begin{eqnarray}\fl
+F = \frac{| \langle  \psi_2 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}}}  = \frac{1}{2^{N(M+2)/2} p_{\vec{q}} } \nonumber\\
 \times \Big| \sum_{k_1, k_3, \dots, k_{M-1} }C_N^{k_1}
 \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right) \left(\frac{e^{i(k_{M-1} - k_1)t }+1}{2}\right)^N \Big|^2 .  
 \label{fideven}
-\end{multline}
+\end{eqnarray}
 %
 For an odd number of nodes in Fig. \ref{fig:fidelity}, we evaluate the fidelity with respect to the $ M = 3$ state wavefunction
 %
@@ -565,9 +557,9 @@ For long chain lengths, there is an exponentially small probability of obtaining
 
 
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{fidelity-n30}
+    \includegraphics[width=0.8\textwidth]{fidelity-n30}
     \caption{The fidelity between the projected state $ | \Psi_{\vec{q}} \rangle  $ and the $ M = 2$ state (\ref{M2psi}) for even cases and the $ M = 3$ state (\ref{ideal_odd}) for odd cases.  Expressions for the fidelity are given by 
        (\ref{fideven}) for even $ M $ and (\ref{fidelity_odd}) for odd $ M $.  The measurement outcome $ q_j = N $ is used for all curves with offset angle $ \phi = 0 $.  The interaction time $ t $ is with respect to the Hamiltonian (\ref{mainham}) and different lines show various chain lengths $ M $. Each ensemble has $ N = 20 $ bosons. }
     \label{fig:fidelity}
@@ -601,66 +593,75 @@ For long chain lengths, there is an exponentially small probability of obtaining
 
 To understand what is special about the entanglement at the magic times we perform an analysis of the wavefunction at these times.  For the purposes of our analysis we define the magic times to be at evolution times 
 %
-\begin{align}
+\begin{equation}
 t_L = \frac{2\pi}{L}
 \label{magictimes}
-\end{align}
+\end{equation}
 %
 where $L $ takes an integer value. We note that there are additional times that have the invariance property with $ M$, e.g. $ t = 4\pi/5 $ (see Fig. \ref{fig:fidelity}). For the simplicity and generality of the analysis we shall only consider the times (\ref{magictimes}).  For all times  $ L \in [1, \sqrt{N} ] $ the entanglement exhibits the stationary behavior.  
 
 The reason why times with fractional multiplies of $ 2 \pi  $ are special is discussed in Ref.  \cite{byrnes2013fractality} for the $M = 2 $ case.  At these times we see that the the spin coherent states factorize as
 %
-\begin{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
 &|\psi_2 (t= \frac{2\pi}{L} )  \rangle=\frac{1}{\sqrt{2^N}}\sum_{k=0}^N \sqrt{C_{N}^{k}}|k\rangle_1  |\frac{e^{2 \pi i k/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 ,  \label{firstlinepsi2} \\
-& = \frac{1}{\sqrt{2^N}} \sum_{m=0}^{L-1} \left(  \sum^N_{  \underset{  \{ k (\text{mod} L ) =m \} }{k=0} }   \sqrt{C_{N}^{k}}|k\rangle  \right)  |\frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 .
+& = \frac{1}{\sqrt{2^N}} \sum_{m=0}^{L-1} \left(  \sum^N_{  \underset{  \{ k (\mathrm{mod} L ) =m \} }{k=0} }   \sqrt{C_{N}^{k}}|k\rangle  \right)  |\frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 .
 \label{M2psiv2}
-\end{align}
+% \end{aligned}
+}
+\end{equation}
 %
 Here we made the replacement
 %
-\begin{align}
-\sum_{k=0}^N \rightarrow \sum_{m=0}^{L-1} \sum^N_{  \underset{  \{ k (\text{mod} L ) =m \} }{k=0} } 
-\end{align}
+\begin{equation}
+\sum_{k=0}^N \rightarrow \sum_{m=0}^{L-1} \sum^N_{  \underset{  \{ k (\mathrm{mod} L ) =m \} }{k=0} } 
+\end{equation}
 %
-where the second summation only runs over those $ k $ satisfying $ k (\text{mod} L) = m $. 
+where the second summation only runs over those $ k $ satisfying $ k (\mathrm{mod} L) = m $. 
 
 It is then natural to define the set of states
 %
-\begin{align}
-|{\cal C}_m \rangle = \frac{1}{\sqrt{Z_m}}  \sum^N_{  \underset{  \{ k (\text{mod} L ) =m \} }{k=0} }  \sqrt{C_{N}^{k}}|k\rangle 
-\end{align}
+\begin{equation}
+|{\cal C}_m \rangle = \frac{1}{\sqrt{Z_m}}  \sum^N_{  \underset{  \{ k (\mathrm{mod} L ) =m \} }{k=0} }  \sqrt{C_{N}^{k}}|k\rangle 
+\end{equation}
 %
 where the normalization $ Z_m \approx 2^N/L $ is a good approximation for $ N \gg 1 $.  These states form an orthonormal set $ \langle {\cal C}_m | {\cal C}_n \rangle = \delta_{mn} $. Taking a Fourier transform of these states gives a spin coherent state
 %
-\begin{align}
+\begin{equation}
 \frac{1}{\sqrt{L}} \sum_{m=0}^{L-1} e^{-2 \pi i n m/L } |{\cal C}_m \rangle  =| \frac{e^{-2 \pi i n /L }}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle . 
-\end{align}
+\end{equation}
 %
 The inverse Fourier transform is
 %
-\begin{align}
+\begin{equation}
 |{\cal C}_m \rangle = \frac{1}{\sqrt{L}} \sum_{n=0}^{L-1} 
 e^{2 \pi i n m/L } | \frac{e^{-2 \pi i n /L }}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle .
 \label{invfouriercat}
-\end{align}
+\end{equation}
 %
 We see that $ |{\cal C}_m \rangle$ can be written as a sum of spin coherent states.  This is a spin-cat state which has been considered in various contexts before to encode quantum information \cite{agarwal1997atomic,semenenko2016implementing,qin2021generating,omanakuttan2024fault}.  
 
 The $ M = 2$ state at the magic times can be written
 %
-\begin{align}
+\begin{equation}
 |\psi_2 (t= \frac{\pi}{2L} )  \rangle = \frac{1}{\sqrt{L}} \sum_{m=0}^{L-1} |{\cal C}_m \rangle_1 |\frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 . 
 \label{bellcat}
-\end{align}
+\end{equation}
 %
 For well-separated spin coherent states
 %
-\begin{align}
+% \begin{equation}
+\begin{eqnarray}
+% \eqalign{%
+%   \begin{aligned}
 |\langle \langle \frac{e^{2 \pi i n/L }}{\sqrt{2}},\frac{1}{\sqrt{2}} |  \frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle | & = \cos^N (n-m)\pi/L \nonumber \\
 &  \approx e^{-N (n-m)^2 \pi^2/2 L^2} \nonumber \\
-& \approx \delta_{nm}    \hspace{5mm} \text{(if $ L< \sqrt{N} $) .}
+& \approx \delta_{nm}  \quad \mbox{(if $L< \sqrt{N}$)}.
 \label{orthogonalscs}
-\end{align}
+% }
+\end{eqnarray}
+% \end{equation}
 %
 Hence we can consider the state (\ref{bellcat}) to be an entangled state of $ L $ terms where on the first ensemble there is a spin-cat state and on the second ensemble there is a spin coherent state at various positions on the equator of the Bloch sphere.  This fact was already noted in Ref. \cite{byrnes2013fractality} for the case $ L = 2$. 
 
@@ -673,61 +674,76 @@ Hence we can consider the state (\ref{bellcat}) to be an entangled state of $ L 
 
 We now return to the general case of $ M $ ensembles and evaluate the quantum state at the magic times.  Using the same methods as in the previous section we obtain the wavefunction before measurement for even $ M $ as
 %
-\begin{multline}
-|\psi_M \rangle=\frac{1}{\sqrt{L^{\frac{M}{2}}}}\sum_{m_1,m_3,\ldots,m_{M-1}=0}^{L-1}  \\
+\begin{eqnarray}\fl
+|\psi_M \rangle=\frac{1}{\sqrt{L^{\frac{M}{2}}}}\sum_{m_1,m_3,\ldots,m_{M-1}=0}^{L-1}  \nonumber\\
 \times | {\cal C}_{m_1}  \rangle_1  |\frac{e^{2 i(m_{1}-m_{3})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | {\cal C}_{m_3} \rangle_3
-|\frac{e^{2 i(m_{3}-m_{5})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
+|\frac{e^{2 i(m_{3}-m_{5})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \nonumber\\
 \dots \otimes  | {\cal C}_{m_{M-1}} \rangle_{M-1} |\frac{e^{2 i m_{M-1}\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} . 
 \label{evenpsiMcat}
-\end{multline}
+\end{eqnarray}
 %
 Written in this form we may deduce why there is the entanglement invariance property that was observed in Fig. \ref{fig:entanglement}.  Let us make the measurement of the intermediate ensembles in two steps, first projecting the even numbered nodes within $ j \in [2,M-1] $, then the odd nodes. Splitting the measurements into two steps does not affect the final result as all the measurements commute.  Again set the rotation parameter $ \phi = 0 $ for now.  Considering first for 
 simplicity obtaining the outcome 
 %
-\begin{align}
+\begin{equation}
 |q= N \rangle^{(x)} = | \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle 
-\end{align}
+\end{equation}
 %
 and assume that $L < \sqrt{N} $ such that the spin coherent states are approximately orthogonal as in (\ref{orthogonalscs}).  Then this enforces $ m_1 = m_3 = \dots = m_{M-1} $ for even $ M $.  The resulting state for even $ M $ is approximately
 %
-\begin{align}
-\bigotimes_{j=2,4,\dots M-2} |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
+\begin{equation}
+\eqalign{%
+%   \begin{aligned}
+\bigotimes_{j=2,4,\dots M-2} |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  |\psi_M \rangle \propto \\
 \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m}  \rangle_3 \dots | {\cal C}_{m}  \rangle_{M-1} |\frac{e^{2 i m \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} ,  
-\end{align}
+%   \edn{aligned}
+}
+\end{equation}
 %
 which is valid for $ N \gg 1 $.  
 This correlates all the remaining ensembles, in particular the first and last ensemble such that they have the same label $ m $. 
 
 Now looking at the remaining intermediate ensembles, the spin-cat states can be written as a superposition of spin coherent states as shown in (\ref{invfouriercat}).  Measurement of the cat states will collapse the superposition as
 %
-\begin{align}
+\begin{equation}
 \langle q = N |^{(x)}  | {\cal C}_{m}  \rangle \approx \frac{1}{\sqrt{L}}
-\end{align}
+\end{equation}
 %
 where only the $ n = 0 $ term in (\ref{invfouriercat}) contributes for well-separated spin coherent states.  The correlations between the first and last ensembles are hence preserved and we obtain
 %
-\begin{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
  \bigotimes_{j=2}^{M-1} & |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  | \psi_M \rangle \propto \nonumber \\
 & \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 |\frac{e^{2 i m \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  , 
 \label{projideal}
-\end{align}
+% \end{aligned}
+}
+\end{equation}
 %
 which is valid for $ N \gg 1 $.  
 This is precisely the same quantum state as (\ref{bellcat}).  This is obtained for arbitrary chain length $ M $.   This explains the invariance property of the entanglement and fidelity observed in Figs. \ref{fig:entanglement} and \ref{fig:fidelity} for the even case. 
 
 For odd $ M $, we can use the same manipulations to obtain
 %
-\begin{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
  \bigotimes_{j=2}^{M-1} & |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  | \psi_M \rangle \propto  \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m}  \rangle_{M} . 
 \label{projideal}
-\end{align}
+% \end{aligned}
+}
+\end{equation}
 %
 This is the same state as (\ref{ideal_odd}) which can be written as
 %
-\begin{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
 | \Psi_N^{(M=3)}  \rangle & \approx  \frac{1}{\sqrt{L}} \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m}  \rangle_{3} , \\
 & =  \frac{1}{\sqrt{L}} \sum_{n=0}^{L-1} |\frac{e^{2 i n \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{1} |\frac{e^{-2 i n \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{3} 
-\end{align}
+}
+\end{equation}
 %
 which is valid for $ N \gg 1 $.  
 
@@ -745,43 +761,43 @@ We now wish to generalize this result for arbitrary measurement outcomes. One ca
 
 To illustrate the measurement scheme, first consider performing a measurement of the spin-cat state (\ref{invfouriercat}) in the $ x $ basis.  Plotting the positions of the spin coherent states involved in this superposition immediately identifies a problem: spin coherent states labeled with $ n $ and $ L-n $ have the same $ x $ position (Fig. \ref{fig:measurement}(a)).  Hence projection in the $ x $ basis will collapse the superposition, but will catch two spin coherent states together, unless they are located at the extremal positions $ \langle S^x \rangle = \pm N $.  To avoid this issue, it is beneficial to slightly offset the spin coherent states such that one measures instead the state
 %
-\begin{align}
+\begin{equation}
 e^{i \phi n^a } |{\cal C}_m \rangle = \frac{1}{\sqrt{L}} \sum_{n=0}^{L-1} 
 e^{2 \pi i n m/L } | \frac{e^{-i (2 \pi n /L - \phi) }}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle ,
 \label{rotatedspincat}
-\end{align}
+\end{equation}
 %
 where a suitable angle choice is
 %
-\begin{align}
+\begin{equation}
 \phi = \frac{\pi}{2L }.  
-\end{align}
+\end{equation}
 %
 This slight rotation offsets the spin coherent states slightly such that a projection on the $ x $-axis results in a collapse of the state to uniquely one of the spin coherent states (Fig. \ref{fig:measurement}(b)). 
 
 The effect of the measurement is also evident by examining the probability of the projection
 %
-\begin{align}
+\begin{equation}
 p_q =| \langle q |^{(x)}  e^{i \phi n^a } |{\cal C}_m \rangle|^2 .
 \label{probcat}
-\end{align}
+\end{equation}
 %
 Figure \ref{fig:measurement}(c)(d) shows the probability of the rotated spin-cat state for the same states as shown in Figs. \ref{fig:measurement}(a)(b) respectively. 
 We see peaks in the probability distribution at the expectation value of $ S^x $ each of the spin coherent states involved in the spin-cat state. When the projection involves two spin coherent states, there is a rapid oscillation of the probability distribution (Fig. \ref{fig:measurement}(c)).  By applying the rotation $ \phi $ this ambiguity is removed and smooth Gaussian peaks are seen for each of the spin coherent states (Fig. \ref{fig:measurement}(d)). 
 
 For a given measurement outcome $ q $, one can deduce which spin coherent state has been projected using the peak position of the Gaussians:
 %
-\begin{align}
-q_{\text{peak}} = N \cos^2 ( \pi ( \bar{n}-1/4)/L )  , 
-\end{align}
+\begin{equation}
+q_{\mathrm{peak}} = N \cos^2 ( \pi ( \bar{n}-1/4)/L )  , 
+\end{equation}
 %
-where the spin coherent state is labeled by $ \bar{n} \in [0, L-1] $. For a particular outcome $ q $, by finding the closest $ q_{\text{peak}} $ one can deduce which spin coherent state labeled by $ \bar{n} $ the collapse occurred at.  
+where the spin coherent state is labeled by $ \bar{n} \in [0, L-1] $. For a particular outcome $ q $, by finding the closest $ q_{\mathrm{peak}} $ one can deduce which spin coherent state labeled by $ \bar{n} $ the collapse occurred at.  
 
 
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{measurement}
+    \includegraphics[width=0.8\textwidth]{measurement}
     \caption{Visualization and measurement of a spin-cat state. (a)(b) Visualization of the spin-cat states (\ref{invfouriercat}) and (\ref{rotatedspincat}) respectively. Figures are plotted by centering a Gaussian $ e^{- N[ (\langle S^x \rangle - \cos \theta)^2 + (\langle S^y \rangle - \sin \theta)^2]/4} $, which is the Q-function distribution for a spin coherent state.  (c)(d) The probability distribution (\ref{probcat}) for $ \phi = 0, \pi/2L $ respectively.  For all plots $ L = 4, N = 100 $ is used.  }
     \label{fig:measurement}
 \end{figure}
@@ -813,67 +829,83 @@ where the spin coherent state is labeled by $ \bar{n} \in [0, L-1] $. For a part
 Using the technique in the previous section, we may now examine the remaining projection outcomes in addition to the $ q_j = N $ case.  Examining  (\ref{evenpsiMcat}), first consider performing a measurement on the even numbered ensembles.  Assuming that the collapse occurs such as to pick out one and only one of the spin coherent states we obtain the relation
 %The key aspect to note is that as long as a measurement is made such as to collapse the superposition of spin coherent states that are involved in (\ref{evenpsiMcat}) and (\ref{oddpsiMcat}) to one and only one of the states, similar results will be obtained. Suppose that on 
 %
-\begin{align}
-    m_{j-1} - m_{j+1} = \bar{m}_j (\text{mod} L) .  
-\end{align}
+\begin{equation}
+    m_{j-1} - m_{j+1} = \bar{m}_j (\mathrm{mod} L) .  
+\end{equation}
 %
 The state is then
 %
-\begin{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
 & \bigotimes_{j=2,4,\dots M-2} |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
-& \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_2}  \rangle_3 | {\cal C}_{m - \bar{m}_2 - \bar{m}_4}  \rangle_5 \dots | {\cal C}_{m - \bar{m}_{\text{even}}}  \rangle_{M-1} \nonumber \\
- & \otimes |\frac{e^{2 i (m+ \bar{m}_{\text{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  .  
+& \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_2}  \rangle_3 | {\cal C}_{m - \bar{m}_2 - \bar{m}_4}  \rangle_5 \dots | {\cal C}_{m - \bar{m}_{\mathrm{even}}}  \rangle_{M-1} \nonumber \\
+ & \otimes |\frac{e^{2 i (m+ \bar{m}_{\mathrm{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  .  
  \label{evenprojectedpsi}
-\end{align}
+% \end{aligned}
+}
+\end{equation}
 %
 where we defined
 %
-\begin{align}
-\bar{m}_\text{even} =  
+\begin{equation}
+\bar{m}_\mathrm{even} =  
 \sum_{j=2,4, \dots, M-2} \bar{m}_j .
-\end{align}
+\end{equation}
 %
 This correlates the first and last ensemble up to an offset in $ m $. In (\ref{evenprojectedpsi}), the proportionality factor is
 %
-\begin{align}
-& \frac{1}{\sqrt{L^{M/2}}} \prod_{j=2,4,\dots, M-2} \langle q_j|^{(x)} | \frac{e^{2i (m_{j-1} - m_{j+1} ) \pi/L + i \phi }}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle \nonumber \\
-& = \frac{e^{iN \bar{m}_\text{even} \pi /L + iN \phi/2} }{\sqrt{L^{M/2}}} \nonumber \\
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
+& \frac{1}{\sqrt{L^{M/2}}} \prod_{j=2,4,\dots, M-2} \langle q_j|^{(x)} | \frac{e^{2i (m_{j-1} - m_{j+1} ) \pi/L + i \phi }}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle \\
+& = \frac{e^{iN \bar{m}_\mathrm{even} \pi /L + iN \phi/2} }{\sqrt{L^{M/2}}} \\
 & \times \prod_{j=2}^{M-2}  \sqrt{C_N^{q_j}} \cos^{q_j} ( \frac{\bar{m}_j \pi}{L} + \frac{\phi}{2} )\sin^{N-q_j} ( \frac{\bar{m}_j \pi}{L} + \frac{\phi}{2} ) 
-\end{align}
+% \end{aligned}
+}
+\end{equation}
 %
 which has no dependence on $ m $ hence does not affect the wavefunction.  
 
 Measurement of the odd numbered intermediate ensembles will give factors
 %
-\begin{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
 \langle q|^{(x)} | {\cal C}_m \rangle & = \frac{1}{\sqrt{L}} \sum_{n=0}^{L-1} e^{2 \pi i nm/L } 
 \langle q|^{(x)}  | \frac{ e^{-2 \pi i n/L + i \phi}}{\sqrt{2}}, \frac{ 1}{\sqrt{2}} \rangle \rangle \nonumber \\
 & \approx \frac{1}{\sqrt{L}} e^{i \pi \bar{n} (2m - N)/L + i \phi N/2 } \sqrt{C_N^{q}} \nonumber \\
 & \times \cos^{q} ( \frac{\bar{n} \pi}{L} - \frac{\phi}{2} )\sin^{N-q_j} ( \frac{\bar{n} \pi}{L} - \frac{\phi}{2} ) 
-\end{align}
+% \end{aligned}
+  }
+\end{equation}
 %
 where in the second line we used the result of the previous section that the measurement will collapse the spin-cat state to one of the spin coherent states with label $ \bar{n} $.  Here the important factor that affects the wavefunction is the phase dependence on $ m $.  The total $ m $ dependence is given by projecting the odd sites is
 %
-\begin{align}
+\begin{equation}
 \langle q_3|^{(x)} | {\cal C}_{m -\bar{m}_2} \rangle 
 \langle q_5|^{(x)} | {\cal C}_{m -\bar{m}_2 - \bar{m}_4 } \rangle \dots 
-\langle q_{M-1} |^{(x)} | {\cal C}_{m - \bar{m}_\text{even} } \rangle \nonumber \\
-\propto e^{2 \pi i m \bar{n}_{\text{odd}}/L }
-\end{align}
+\langle q_{M-1} |^{(x)} | {\cal C}_{m - \bar{m}_\mathrm{even} } \rangle \nonumber \\
+\propto e^{2 \pi i m \bar{n}_{\mathrm{odd}}/L }
+\end{equation}
 %
 where 
 %
-\begin{align}
-\bar{n}_{\text{odd}} = \sum_{j=3,5,\dots, M-1} \bar{n}_j  . 
-\end{align}
+\begin{equation}
+\bar{n}_{\mathrm{odd}} = \sum_{j=3,5,\dots, M-1} \bar{n}_j  . 
+\end{equation}
 
 We thus finally obtain the final state after projection 
 %
-\begin{align}
-& | \Psi_{\vec{q}}^{\text{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
-& \sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\text{odd}}/L } | {\cal C}_{m}  \rangle_1 |\frac{e^{2 i (m - \bar{m}_{\text{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} .  
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
+& | \Psi_{\vec{q}}^{\mathrm{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \\
+& \sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\mathrm{odd}}/L } | {\cal C}_{m}  \rangle_1 |\frac{e^{2 i (m - \bar{m}_{\mathrm{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} .  
  \label{evenprojectedpsiapprox}
-\end{align}
+% \end{aligned}
+}
+\end{equation}
 
 
 Figure \ref{fig:finalfig} show a comparison of the approximate wavefunction (\ref{evenprojectedpsiapprox}) with the exact wavefunction (\ref{final_even}).  In Fig. \ref{fig:finalfig}(a) the amplitude of the coefficients in the number basis is shown.  Excellent agreement is seen, with the coefficents having nearly perfect agreement.  The fidelity of the approximate wavefunction improves with $ N $, as seen in Fig. \ref{fig:finalfig}(b).  The reason that the fidelities improve with $ N $ is due to the measurement scheme that we implement as described in the previous section.  In order to collapse the state to a single spin coherent state, the Gaussians for each one should be well-separated, as discussed in Fig. \ref{fig:measurement}.  This requires $ L < \sqrt{N} $ typically. With increasing $ N $, the Gaussian become better separated and approaches the ideal collapse to a single spin coherent state.  
@@ -885,30 +917,32 @@ We note that in Fig. \ref{fig:fidelity} perfect fidelity $ F = 1$ was obtained, 
 
 
 
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\columnwidth]{finalfid}
-    \caption{Comparison of the exact wavefunction (\ref{final_even}) with the approximate wavefunction (\ref{evenprojectedpsiapprox}).  (a) The wavefunction amplitude $ | \langle \Psi_{\vec{q}} | k_1, k_M \rangle | $ for $N = 10, M= 3, L = 3 $ and $ q_2 = N/2 $ for $ K = (N+1) k_1 + k_M +1 $.  The approximate wavefunction is shown as the dashed line, the exact wavefunction is shown as a solid line. (b) The fidelity $ F = |\langle \Psi_{\vec{q}} | \Psi_{\vec{q}}^{\text{approx}} \rangle |^2 $ for $ M = 3, L = 3$ for three outcomes $ q_2 = 0, N/2, N $ as marked. All cases implement the measurement scheme where the intermediate ensembles are measured using the offset angle $ \phi = \pi/2L $.
+    \includegraphics[width=0.8\textwidth]{finalfid}
+    \caption{Comparison of the exact wavefunction (\ref{final_even}) with the approximate wavefunction (\ref{evenprojectedpsiapprox}).  (a) The wavefunction amplitude $ | \langle \Psi_{\vec{q}} | k_1, k_M \rangle | $ for $N = 10, M= 3, L = 3 $ and $ q_2 = N/2 $ for $ K = (N+1) k_1 + k_M +1 $.  The approximate wavefunction is shown as the dashed line, the exact wavefunction is shown as a solid line. (b) The fidelity $ F = |\langle \Psi_{\vec{q}} | \Psi_{\vec{q}}^{\mathrm{approx}} \rangle |^2 $ for $ M = 3, L = 3$ for three outcomes $ q_2 = 0, N/2, N $ as marked. All cases implement the measurement scheme where the intermediate ensembles are measured using the offset angle $ \phi = \pi/2L $.
     }
     \label{fig:finalfig}
 \end{figure}
 
 
 
-Therefore, using the offset measurement include $ \phi = \pi/2L$, one may obtain consistently obtain (\ref{evenprojectedpsiapprox}) for all measurement outcomes.  The final step to turn this into a deterministic scheme for preparing entanglement is to peform conditional rotations to eliminate the $ \bar{n}_\text{odd} $ and  $ \bar{m}_\text{even} $ terms.  Specifically, knowledge of $ \bar{n}_\text{odd} $ and  $ \bar{m}_\text{even} $  allows for a correction of the state to the state (\ref{projideal}) using the rotations
+Therefore, using the offset measurement include $ \phi = \pi/2L$, one may obtain consistently obtain (\ref{evenprojectedpsiapprox}) for all measurement outcomes.  The final step to turn this into a deterministic scheme for preparing entanglement is to peform conditional rotations to eliminate the $ \bar{n}_\mathrm{odd} $ and  $ \bar{m}_\mathrm{even} $ terms.  Specifically, knowledge of $ \bar{n}_\mathrm{odd} $ and  $ \bar{m}_\mathrm{even} $  allows for a correction of the state to the state (\ref{projideal}) using the rotations
 %
-\begin{align}
+\begin{equation}
+  \eqalign{
 e^{i 2 \pi n^a /L } | {\cal C}_m \rangle & = e^{i 2 \pi m /L } | {\cal C}_m \rangle \label{correction1} \\
 e^{i \phi n^a } |\frac{e^{ i \phi' }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle & = |\frac{e^{ i (\phi+\phi')  }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle .
+  }
 \label{correction2} 
-\end{align}
+\end{equation}
 %
 Then by applying the corrections
 %
-\begin{align}
-e^{-2 \pi i \bar{n}_{\text{odd}}  n^a_1/L }  e^{2 \pi i \bar{m}_{\text{even}}  n^a_M/L }  | \Psi_{\vec{q}} \rangle \approx | \psi_2 (t= \frac{\pi}{2L} ) \rangle 
+\begin{equation}
+e^{-2 \pi i \bar{n}_{\mathrm{odd}}  n^a_1/L }  e^{2 \pi i \bar{m}_{\mathrm{even}}  n^a_M/L }  | \Psi_{\vec{q}} \rangle \approx | \psi_2 (t= \frac{\pi}{2L} ) \rangle 
 \label{correction3}
-\end{align}
+\end{equation}
 %
 we obtain a deterministic preparation of the state (\ref{bellcat}) which is the aim of this study.  
 
@@ -958,7 +992,7 @@ we obtain a deterministic preparation of the state (\ref{bellcat}) which is the 
 
 
 % %
-% \begin{multline*}
+% \begin{eqnarray*}
 %   \bar F(t)
 %   = \langle\psi_2  | \bar \rho_{ \vec{q} }(t) |\psi_2  \rangle
 %   \\
@@ -980,7 +1014,7 @@ we obtain a deterministic preparation of the state (\ref{bellcat}) which is the 
 %       e^{ i  (2k_1 - N)(2k_3 - N) 
 %       \dots (2k_{M - 1} - N)(2k_M - N) \xi}
 %       \Big|^2 . 
-% \end{multline*}
+% \end{eqnarray*}
 % %
 
 
@@ -1062,20 +1096,20 @@ Here we show the corresponding expressions for odd $ M $ for the even $ M $ expr
 
 The odd $ M $ counterpart of (\ref{final_even}) is 
 %
-\begin{multline}
+\begin{eqnarray}\fl
 \label{final_odd}
 | \Psi_{\vec{q}} \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N} \sqrt{ C^{k_1}_{N}  C^{k_M}_{N} } 
- \\ \times \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right) |k_1\rangle|k_M\rangle . 
-\end{multline}
+ \nonumber\\ \times \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right) |k_1\rangle|k_M\rangle . 
+\end{eqnarray}
 %
 In order to calculate the fidelity for odd case, we take the overlap with the projected $ M = 3 $ state (\ref{ideal_odd}). The fidelity in this case equals 
 %
-\begin{multline}
+\begin{eqnarray}\fl
 \label{fidelity_odd}
-F = \frac{| \langle  \psi_3 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}} }   =\frac{1}{2^{N(M+5)/2} p_{\vec{q}} }\\
+F = \frac{| \langle  \psi_3 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}} }   =\frac{1}{2^{N(M+5)/2} p_{\vec{q}} }\nonumber\\
 \times \frac{\Big|\sum_{k_1, k_3, \dots, k_M } 
  C_N^{k_1}C_N^{k_M} {\Omega_{N}^{(2)}}^* \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right)   \Big|^2 }{ \sum_{k_1,k_3=0}^{N}  C^{k_1}_{N}  C^{k_3}_{N} | \Omega_{N}^{(2)} |^2 }
-\end{multline}
+\end{eqnarray}
 %
 when we measure $N$ on all  intermediate ensembles. 
 
@@ -1085,23 +1119,23 @@ when we measure $N$ on all  intermediate ensembles.
 
 % We can also compare our final state with (\ref{M2psi}). The odd $ M $ counterpart of (\ref{fideven}) is
 % %
-% \begin{multline}
+% \begin{eqnarray}\fl
 % F = \frac{ | \langle  \psi_2 | \Psi_{\vec{q}} \rangle |^2}{ p_{\vec{q}} }   =\frac{1}{2^{N(M+5)/2} p_{\vec{q}} }\\
 % \times \Big|\sum_{k_1, k_3, \dots, k_{M} } 
 %  C_N^{k_1}C_N^{k_M} \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right) e^{-i k_1 k_M t}  \Big|^2 .
-% \end{multline}
+% \end{eqnarray}
 %
 % The fidelity is presented in Fig. \ref{fig:fidelity_even}. We can see that Figs. \ref{fig:fidelity_even} and \ref{fig:fidelity_odd} are kind of symmetric in the meaning of structure of final state after entanglement distribution at the magic times depending on the length of the chain (even or odd). This appears due to the parity.
 % \begin{figure}
 %     \centering
-%     \includegraphics[width=\columnwidth]{fidelity_odd}
+%     \includegraphics[width=\textwidth]{fidelity_odd}
 %     \caption{The fidelity  measures the similarity of the final state after entanglement distribution with respect to the $ M = 3$ state (\ref{ideal_odd}).  The measurement outcome $ q_j = N $ is used for all curves with offset angle $ \phi = 0 $.  The interaction time $ t $ is with respect to the Hamiltonian (\ref{mainham}) and different lines show various chain lengths $ M $. Each ensemble has $ N = 30 $ bosons. }
 %     \label{fig:fidelity_odd}
 % \end{figure}
 
 % \begin{figure}
 %     \centering
-%     \includegraphics[width=\columnwidth]{fidelity_even}
+%     \includegraphics[width=\textwidth]{fidelity_even}
 %     \caption{The fidelity  measures the similarity of the final state after entanglement distribution with respect to the $ M = 2$ ideal state (\ref{M2psi}).  The measurement outcome $ q_j = N $ is used for all curves with offset angle $ \phi = 0 $.  The interaction time $ t $ is with respect to the Hamiltonian (\ref{mainham}) and different lines show various chain lengths $ M $. Each ensemble has $ N = 30 $ bosons.}
 %     \label{fig:fidelity_even}
 % \end{figure}
@@ -1128,7 +1162,7 @@ when we measure $N$ on all  intermediate ensembles.
 %
 
 %
-% \begin{multline*}\label{final_odd}
+% \begin{eqnarray*}\label{final_odd}
 % | \Psi_{ \vec{q} } (\xi) \rangle
 %   = \frac{1}{ \sqrt{ 2^{ \frac{ (M+1)N }{2} } } } 
 %     \sum_{k_1,k_3,\ldots,k_M=0}^{N} \sqrt{ C^{k_1}_{N}  C^{k_M}_{N} } 
@@ -1138,7 +1172,7 @@ when we measure $N$ on all  intermediate ensembles.
 %     \times 
 %     e^{ i  (2k_1 - N)(2k_3 - N) \dots (2k_M - N) \xi}
 %     |k_1\rangle|k_M\rangle . 
-% \end{multline*}
+% \end{eqnarray*}
 
 
 
@@ -1154,7 +1188,7 @@ when we measure $N$ on all  intermediate ensembles.
 
 
 %
-% \begin{multline*}
+% \begin{eqnarray*}
 %   \bar F(t)
 %   = \frac{1}{2^{N(M+5)/2}} 
 %     \Big| 
@@ -1166,39 +1200,47 @@ when we measure $N$ on all  intermediate ensembles.
 %       e^{-i k_1 k_M t}
 %       e^{ i  (2k_1 - N)(2k_3 - N)\dots(2k_M - N) \xi}
 %       \Big|^2 
-% \end{multline*}
+% \end{eqnarray*}
 
 
 The odd $ M $ counterpart of (\ref{evenpsiMcat}) is
 %
-\begin{multline}
-| \psi_M \rangle=\frac{1}{\sqrt{L^{\frac{(M+1)}{2}}}}\sum_{m_1,m_3,\ldots,m_M=0}^{L-1} \\
+\begin{eqnarray}\fl
+| \psi_M \rangle=\frac{1}{\sqrt{L^{\frac{(M+1)}{2}}}}\sum_{m_1,m_3,\ldots,m_M=0}^{L-1} \nonumber\\
 \times | {\cal C}_{m_1}  \rangle_1  |\frac{e^{2 i(m_{1}-m_{3})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | {\cal C}_{m_3} \rangle_3
-|\frac{e^{2 i(m_{3}-m_{5})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
+|\frac{e^{2 i(m_{3}-m_{5})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \nonumber\\
 \dots \otimes |\frac{e^{2 i(m_{M-2}-m_{M})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M-1} | {\cal C}_{m_{M}}  \rangle_{M} .
 \label{oddpsiMcat}
-\end{multline}
+\end{eqnarray}
 %
 Following similar steps to that in Sec. \ref{sec:approxwav} we get the odd $ M $ counterpart of (\ref{evenprojectedpsiapprox})
 %
-\begin{align}
-& | \Psi_{\vec{q}}^{\text{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
-& \sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\text{odd}}/L } | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_{\text{even}}}  \rangle_M  .  \label{oddprojectedpsiapprox}
-\end{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
+& | \Psi_{\vec{q}}^{\mathrm{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto  \\
+& \sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\mathrm{odd}}/L } | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_{\mathrm{even}}}  \rangle_M  .  \label{oddprojectedpsiapprox}
+% \end{aligned}
+  }
+\end{equation}
 %
 where for (\ref{oddprojectedpsiapprox}) we use the modified definitions
 %
-\begin{align}
-\bar{m}_\text{even} & =  
-\sum_{j=2,4, \dots, M-1} \bar{m}_j  \nonumber \\
-\bar{n}_{\text{odd}} & = \sum_{j=3,5,\dots, M-2} \bar{n}_j  . 
-\end{align}
+\begin{equation}
+\eqalign{%
+% \begin{aligned}
+\bar{m}_\mathrm{even} & =  
+\sum_{j=2,4, \dots, M-1} \bar{m}_j \\
+\bar{n}_{\mathrm{odd}} & = \sum_{j=3,5,\dots, M-2} \bar{n}_j  . 
+% \end{aligned}
+  }
+\end{equation}
 
 
 % Then by applying the corrections
 % %
 % \begin{align}
-% e^{-2 \pi i \bar{n}_{\text{odd}}  n^a_1/L }  e^{2 \pi i \bar{m}_{\text{even}}  n^a_M/L }  | \Psi_{\vec{q}} \rangle \approx | \psi_3 (t= \frac{\pi}{2L} ) \rangle 
+% e^{-2 \pi i \bar{n}_{\mathrm{odd}}  n^a_1/L }  e^{2 \pi i \bar{m}_{\mathrm{even}}  n^a_M/L }  | \Psi_{\vec{q}} \rangle \approx | \psi_3 (t= \frac{\pi}{2L} ) \rangle 
 % \label{correction3odd}
 % \end{align}
 % %
@@ -1220,6 +1262,7 @@ where for (\ref{oddprojectedpsiapprox}) we use the modified definitions
 
 
 % \bibliographystyle{apsrev4-1}
+\bibliographystyle{iopart-num}
 \bibliography{bibliography}
 
 
