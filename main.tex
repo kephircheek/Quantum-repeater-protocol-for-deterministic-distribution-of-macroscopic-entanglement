@@ -1,15 +1,4 @@
-\documentclass[%
-  % preprint,%
-  % aps, %
-  prx,%
-  twocolumn,%
-  preprintnumbers,%
-  amsmath,%
-  amssymb,%
-  superscriptaddress%
-]{revtex4}
-
-
+\documentclass{WileyMSP-template}
 \usepackage{graphicx}% Include figure files
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
@@ -29,29 +18,33 @@
 \newcommand{\replace}[2]{{\color{teal} #1} {\color{red} \st{#2}}}
 
 \begin{document}
+\pagestyle{fancy}
+\rhead{\includegraphics[width=2.5cm]{vch-logo.png}}
 
 %\preprint{APS/123-QED}
 
 \title{Quantum repeater protocol for \hl{deterministic entanglement distribution between macroscopic qubits}}
 
-\author{Alexey N. Pyrkov}
-\email{pyrkov@icp.ac.ru}
-\affiliation{Federal Research Center of Problems of Chemical Physics and Medicinal Chemistry RAS, Acad. Semenov av. 1, Chernogolovka, Moscow region, Russia, 142432}
+\maketitle
 
-
+\author{Alexey N. Pyrkov*}
 \author{Ilia D. Lazarev}
-\affiliation{Federal Research Center of Problems of Chemical Physics and Medicinal Chemistry RAS, Acad. Semenov av. 1, Chernogolovka, Moscow region, Russia, 142432}
+\author{Tim Byrnes*}
 
-\author{Tim Byrnes}
-\email{tim.byrnes@nyu.edu}
-\affiliation{New York University Shanghai; NYU-ECNU Institute of Physics at NYU Shanghai, 567 West Yangsi Road, Shanghai, 200126, China.}
-\affiliation{State Key Laboratory of Precision Spectroscopy, School of Physical and Material Sciences, East China Normal University, Shanghai 200062, China}
- \affiliation{Center for Quantum and Topological Systems (CQTS), NYUAD Research Institute, New York University Abu Dhabi, UAE.}
-\affiliation{Department of Physics, New York University, New York, NY 10003, USA}
+\begin{affiliations}
+Alexey N. Pyrkov, Ilia D. Lazarev\\
+Federal Research Center of Problems of Chemical Physics and Medicinal Chemistry RAS, Acad. Semenov av. 1, Chernogolovka, Moscow region, Russia, 142432\\
+Email Address: pyrkov@icp.ac.ru
 
+Tim Byrnes\\
+New York University Shanghai; NYU-ECNU Institute of Physics at NYU Shanghai, 567 West Yangsi Road, Shanghai, 200126, China.\\
+State Key Laboratory of Precision Spectroscopy, School of Physical and Material Sciences, East China Normal University, Shanghai 200062, China\\
+Center for Quantum and Topological Systems (CQTS), NYUAD Research Institute, New York University Abu Dhabi, UAE.\\
+Department of Physics, New York University, New York, NY 10003, USA\\
+Email Address: tim.byrnes@nyu.edu
+\end{affiliations}
 
-\date{\today}% It is always \today, today,
-             %  but any date may be explicitly specified
+% \keywords{Keyword 1, Keyword 2, Keyword 3}
 
 
 \begin{abstract}
@@ -1166,6 +1159,7 @@ The generic dephasing process can be described by the master equation
 Here $ H(t) $ refers to the Hamiltonian of  Eq.\ref{mainham}.   Hence we assume that the dephasing acts during all entangling operations. We consider case of $M=3$, $N=3$. For simulations we use the well-established QuTIP library \cite{qutip}. All calculations are implemented on Intel(R) Core(TM) i9-9900 CPU @ 3.10GHz (8 cores / 16 threads) with 64GiB RAM. From Fig.\ref{decoherence} we can see that degradation of entanglement is favorable for small $\gamma$ and at  the magic times we can conservation of entanglement for $\gamma$ less than $0.01$. Fidelity is not conserved even in the magic times but degrades moderately. All this provides belief on favorable behavior under other decoherence processes.
 
 
+\bibliographystyle{MSP}
 \bibliography{bibliography}
 
 \end{document}
