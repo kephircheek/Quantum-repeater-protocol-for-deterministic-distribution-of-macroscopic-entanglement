@@ -17,13 +17,17 @@
 
 \newcommand{\replace}[2]{{\color{teal} #1} {\color{red} \st{#2}}}
 
+\DeclareRobustCommand{\hlg}[1]{{\sethlcolor{green}\hl{#1}}}
+
+
+
 \begin{document}
 \pagestyle{fancy}
 \rhead{\includegraphics[width=2.5cm]{vch-logo.png}}
 
 %\preprint{APS/123-QED}
 
-\title{Quantum repeater protocol for \hl{deterministic entanglement distribution between macroscopic qubits}}
+\title{Quantum repeater protocol for deterministic distribution of macroscopic entanglement}
 
 \maketitle
 
@@ -57,10 +61,12 @@ Distributing long-distance entanglement is a fundamental goal that is necessary 
                              % Classification Scheme.
 %\keywords{Suggested keywords}%Use showkeys class option if keyword
                               %display desired
+%\maketitle
+
 
 \section{Introduction}
 
-Entanglement distribution in quantum networks is an important task in the field of quantum information, with potential applications such as secure communication, quantum metrology, distributed quantum computation \cite{Wei2022,Wehner2018,Azuma2023}. Photons can carry quantum information over long distances with almost negligible decoherence\cite{berera20,berera21} and are compatible with existing telecommunication fiber technology.
+Entanglement distribution in quantum networks is an important task in the field of quantum information, with potential applications such as secure communication, quantum metrology, distributed quantum computation \cite{Wei2022,Wehner2018,Azuma2023}. \textcolor{red}{Unimpeded, photons can carry quantum information over long distances with almost negligible decoherence \cite{yin2017satellite,ren2017ground,lu2022micius,berera20,berera21}} and are compatible with existing telecommunication fiber technology.
 However, while photons can be transferred relatively efficiently between two locations in the same laboratory or city, distances exceeding this begin to be problematic due to photon loss.
 For example, in a typical optic fiber, the photon loss rate become significant beyond distances of $ \sim 200 $ km and the maximum distance is estimated as $\sim 600$ km \cite{Pirandola2017, Yingqiu2021}.
 In classical signal transmission line this problem can be solved with optical amplifiers but it is not possible to amplify quantum signal due to the famous no-cloning theorem \cite{Park1970, Wootters1982, Nielsen2010}. To overcome this difficulty, Briegel, Zoller and colleagues proposed the quantum repeater protocol \cite{Briegel1998},
@@ -84,21 +90,21 @@ This was followed by several other works studying entanglement generation betwee
 %To acquire a stronger collective enhancement and larger excitation probability in a small size atomic cloud, the atomic ensembles inside a standing-wave Fabry-Perot cavity \cite{Simon2007} and a ring cavity \cite{Bao2012} were realized.
 %However, the disadvantages of DLCZ-type embedded quantum memories in atomic ensembles are that the atom-photon entanglement is generated probabilistically and the excitation probability has to be held low to suppress multi-excitations, which sets a bottleneck to improve the efficiency of the entanglement source.
 
-Such approaches for generating entanglement between ensembles work in either the single excitation  (e.g.  DLCZ) or Holstein-Primakoff regime (for CV), such that the amount of entanglement is of the order of one ebit, corresponding to the entanglement in a single Bell pair.  However, the very large number of atoms in an atomic ensemble provides an opportunity to create entanglement in a different regime.%, creating a type of {\it macroscopic} entanglement.
-Such an approach was discussed in works such as Refs. \cite{byrnes2013fractality,pyrkov2013entanglement,rosseau2014,byrnes2012macroscopic,hussain2014geometric}, where a scheme for \hl{producing entanglement between macroscopic qubits} using an $ S^z S^z$ interaction was analyzed and proposed to be used for quantum computation. Here, we define \hl{such type of entanglement on the basis of} von Neumann entropy or logarithmic negativity that is of order of $ \log_2 D $, where $ D \gg 1  $ is the dimensionality of the subsystems that participate in the entanglement.  In the case of atomic ensembles, the effective dimensionality is equal to the number of atoms \cite{byrnes2020quantum}, which is in the range of $ 10^3 $ to $ 10^{12} $.   These type of states have been proposed to be used as a resource for several quantum information processing protocols, such as quantum teleportation, remote state preparation, and others \cite{pyrkov2014full,byrnes2015macroscopic,manish2021,byrnes2011accelerated}. Experimentally,
+Such approaches for generating entanglement between ensembles work in either the single excitation  (e.g.  DLCZ) or Holstein-Primakoff regime (for CV), such that the amount of entanglement is of the order of one ebit, corresponding to the entanglement in a single Bell pair.  However, the very large number of atoms in an atomic ensemble provides an opportunity to create entanglement in a different regime, creating a type of {\it macroscopic} entanglement.
+Such an approach was discussed in works such as Refs. \cite{byrnes2013fractality,pyrkov2013entanglement,rosseau2014,byrnes2012macroscopic,hussain2014geometric}, where a scheme for producing macroscopic entanglement using an $ S^z S^z$ interaction was analyzed and proposed to be used for quantum computation. Here, we define macroscopic entanglement as von Neumann entropy or logarithmic negativity that is of order of $ \log_2 D $, where $ D \gg 1  $ is the dimensionality of the subsystems that participate in the entanglement.  In the case of atomic ensembles, the effective dimensionality is equal to the number of atoms \cite{byrnes2020quantum}, which is in the range of $ 10^3 $ to $ 10^{12} $.   These type of states have been proposed to be used as a resource for several quantum information processing protocols, such as quantum teleportation, remote state preparation, and others \cite{pyrkov2014full,byrnes2015macroscopic,manish2021,byrnes2011accelerated}. Experimentally,
 the creation of many-particle entanglement localized in a single spatial location \cite{schmied2016bell} and spatially separate regions \cite{fadel2018spatial} within one Bose-Einstein condensate (BEC) has been observed.
-Bell correlations have been experimentally confirmed in a BEC \cite{schmied2016bell} and a thermal atomic ensemble \cite{engelsen2017}. Recently, an experiment successfully demonstrated the achievement of entanglement between a spatially split BECs \cite{Colciaghi2023}. \hl{Also the graph states between four cold atomic ensembles were realized}\cite{cooper24}. However, at the time of writing, there is no scheme for creation \hl{and distribution of  entanglement between non-nearest-neighbor macroscopic nodes in a quantum network}.
+Bell correlations have been experimentally confirmed in a BEC \cite{schmied2016bell} and a thermal atomic ensemble \cite{engelsen2017}. Recently, an experiment successfully demonstrated the achievement of entanglement between a spatially split BECs \cite{Colciaghi2023}. \textcolor{blue}{Additionally, the graph states between four cold atomic ensembles was realized \cite{cooper24}.} However, at the time of writing, there is no scheme for creation \textcolor{blue}{and distribution of macroscopic entanglement in a quantum network}.
 
-In this paper, we introduce a new protocol for creating long-distance {\it macroscopic} entanglement between atomic ensembles. The basic idea is to use entanglement swapping, in a similar way to that proposed in existing quantum repeaters, but perform this at the macroscopic scale. As illustrated in Fig. \ref{fig1}, we consider a chain of qubit ensembles within a quantum network, where nearest neighbors can be entangled with a $S^z S^z$ interaction.  Only local projective measurements are required on the intermediate ensembles leaving the ensembles at the ends of the chain in an entangled state (Fig. \ref{fig1}(b)).  Operations at the ensemble level are only performed for the protocol (i.e. no microscopic operations of single qubits), and the resources required for the protocol only depends upon the chain length and not the number of qubits in an ensemble.
-The type of state is considerably more complex than the qubit version due to the many-body entangled state created by the $S^z S^z$ interaction between the atomic ensembles. Despite this, we are able to find an analytic solution at particular entanglement times.  We show that there are ``magic'' interaction times  where entanglement distributed to the ends of the chain do not degrade with the length of the chain.
+In this paper, we introduce a new protocol for creating long-distance {\it macroscopic} entanglement \textcolor{red}{efficiently} between atomic ensembles. The basic idea is to use entanglement swapping, in a similar way to that proposed in existing quantum repeaters, but perform this at the macroscopic scale. As illustrated in Fig. \ref{fig1}, we consider a chain of qubit ensembles within a quantum network, where nearest neighbors can be entangled with a $S^z S^z$ interaction.  Only local projective measurements are required on the intermediate ensembles leaving the ensembles at the ends of the chain in an entangled state (Fig. \ref{fig1}(b)).  Operations at the ensemble level are only performed for the protocol (i.e. no microscopic operations of single qubits), and the resources required for the protocol only depends upon the chain length and not the number of qubits in an ensemble.  \textcolor{red}{This makes the generation of macroscopic entanglement far more efficient, than say, performing qubit entanglement distribution repeatedly. } The type of state is considerably more complex than the qubit version due to the many-body entangled state created by the $S^z S^z$ interaction between the atomic ensembles. Despite this, we are able to find an analytic solution at particular entanglement times.  We show that there are ``magic'' interaction times  where entanglement distributed to the ends of the chain do not degrade with the length of the chain.  \textcolor{red}{The elementary $S^z S^z$ entangling operation was proposed previously in works such as Ref. \cite{pyrkov2013entanglement,rosseau2014}, but ways of performing entanglement swapping to distribute entanglement have not been considered to date. }
+
 
 
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{network.eps}
+\includegraphics[width=0.75\columnwidth]{network.eps}
 \caption{\label{fig1}
-\hl{Entanglement distribution in a network of macroscopic qubit ensembles}.  (a) Ensembles of qubits are placed at the nodes of a quantum network.  The nearest neighbors of the network are capable of being entangled with a $ S^z S^z $ Hamiltonian, which can generate \hl{entanglement between macroscopic ensembles of qubits}.  The aim is to create entanglement between distant nodes of the network.  A possible physical implementation is using atomic ensembles placed in cavities connected by an optical fiber, such as discussed in Ref. \cite{pyrkov2013entanglement}.
+Macroscopic entanglement distribution with qubit ensembles.  (a) Ensembles of qubits are placed at the nodes of a quantum network.  The nearest neighbors of the network are capable of being entangled with a $ S^z S^z $ Hamiltonian, which can generate which can generate macroscopic entanglement.  The aim is to create entanglement between distant nodes of the network.  A possible physical implementation is using atomic ensembles placed in cavities connected by an optical fiber, such as discussed in Ref. \cite{pyrkov2013entanglement}.
 (b) The entanglement distribution protocol.  First the ensembles at each node are polarized in the $ S^x $ direction, thus preparing in the initial state (\ref{initstate}).  Here we write $ | + \rangle^{\otimes N } = | \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}
 \rangle \rangle $. Nearest neighbor nodes are entangled with the Hamiltonian (\ref{mainham}), producing the state (\ref{evenpsiM}).  Finally the intermediate nodes are measured, giving the state (\ref{final_even}). Dashed lines connecting the nodes denote the entanglement.    }
 \end{figure}
@@ -129,7 +135,7 @@ The type of state is considerably more complex than the qubit version due to the
 
 We now describe concretely the entanglement distribution protocol using qubit ensembles. The basic overview of the scheme is shown in Fig. \ref{fig1}(b).  In order to keep our presentation independent of a particular physical implementation, we consider generically a system consisting of $ N $ qubits located at each node of the quantum network.  We assume that the qubits within the ensemble cannot be controlled individually, but the ensembles may be controlled by total spin operations as we describe below.
 
-Each of the ensembles is initially prepared in a spin coherent state (\hl{which is a standard mathematical representation for general cold atomic ensemble in coherent state}), we denote
+Each of the ensembles is initially prepared in a spin coherent state, we denote
 %
 \begin{equation}
 \label{ensemblequbit}
@@ -153,7 +159,9 @@ Since the spin operators and the initial state are completely symmetric under pa
 |\alpha,\beta\rangle\rangle\equiv\frac{1}{\sqrt{N!}}(\alpha a^\dagger+\beta b^\dagger)^{N}|0\rangle,
 \end{equation}
 %
-where the bosonic creation and annihilation operators $ a, b $ obey commutation relations $[a,a^\dagger]=[b,b^\dagger]=1$. The spin operators are written as
+where the bosonic creation and annihilation operators $ a, b $ obey commutation relations $[a,a^\dagger]=[b,b^\dagger]=1$. \textcolor{red}{The physical implication of this equivalence is that both degenerate bosonic systems such as BECs and non-degenerate qubit ensembles (e.g. cold or hot atomic gases) are compatible with our protocol.  An exact mathematical mapping exists between the two \cite{byrnes2023multipartite} and are interchangeable as long as the initial states and operations are completely symmetric under particle interchange. }
+
+The spin operators are written as
 %
 \begin{align}
 S^x & = a^\dagger b + b^\dagger a \nonumber \\
@@ -201,12 +209,13 @@ n^a_j n_{j+1}^a = \frac{1}{4} (S^z_j + \hat{N}_j) (S^z_{j+1} + \hat{N}_{j+1} ).
 \end{align}
 
 Numerous proposals for producing a $ S^z S^z $ interaction between qubits have been proposed, particular in the context of atomic ensembles and BECs.  In Ref. \cite{pyrkov2013entanglement} a scheme mediated by photons in an optical fiber was proposed.  This was later adapted to a geometric phase gate \cite{hussain2014geometric}. Another approach is to use spin-dependent forces on neighboring BECs \cite{treutlein2006}.
-Such an interaction is also produced when one-axis squeezed states are split \cite{Jing_2019}.  This type of entanglement was  experimentally realized in BECs \cite{fadel2018spatial,Colciaghi2023}. \hl{Other method for creation cat states in BECs and atomic ensembles were also proposed }\cite{simon14,nori21}.  In this paper, we assume that such an interaction can be induced using suitable methods, and the interaction time $ t $ is a controllable parameter.
+Such an interaction is also produced when one-axis squeezed states are split \cite{Jing_2019}.  This type of entanglement was  experimentally realized in BECs \cite{fadel2018spatial,Colciaghi2023}. \textcolor{blue}{Other methods for the creation of cat states in BECs and atomic ensembles were also proposed \cite{simon14,nori21}. }  In this paper, we assume that such an interaction can be induced using suitable methods, and the interaction time $ t $ is a controllable parameter.
 
 Evolving the Hamiltonian for a time $ t $ between the ensembles gives the unitary evolution
 %
 \begin{equation}
 U=\prod^{M-1}_{j=1} e^{- i (-1)^j  n^a_j n^a_{j+1} t} .
+\label{uevol}
 \end{equation}
 %
 The state after applying the gates is
@@ -214,19 +223,22 @@ The state after applying the gates is
 \begin{align}
 |\psi_M \rangle = U | \phi_0 \rangle .
 \end{align}
-
+%
+\textcolor{red}{As each of the operations in  $ U $ commute, the entanglement between each of the links can be independently generated in the chain configuration. }
 
 
 To understand the type of state that is produced by this interaction, consider first the $ M = 2$ case which gives
+
 %
-\begin{align}
-|\psi_2 \rangle&=e^{i n^a_1 n^a_{2} t}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{1}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{2}\nonumber\\
-&=\frac{1}{\sqrt{2^N}}\sum_{k_1}\sqrt{C_{N}^{k_1}}|k_1\rangle |\frac{e^{i k_1 t} }{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 .
+\begin{equation}
+|\psi_2 \rangle=e^{i n^a_1 n^a_{2} t}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{1}|\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{2} = \frac{1}{\sqrt{2^N}}\sum_{k_1}\sqrt{C_{N}^{k_1}}|k_1\rangle |\frac{e^{i k_1 t} }{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 .
 \label{M2psi}
-\end{align}
+\end{equation}
 %
+
 As discussed in Ref. \cite{byrnes2013fractality}, this produces a type of entangled state where number states in the first ensemble are correlated with spin coherent states around the equator of the Bloch sphere of the second. The unitary operation $U $ can be viewed as a conditional rotation of ensemble 2 with an angle dependent on the number state on ensemble 1.
 %Due to the symmetry between the two ensembles, it is equally possible to write the correlations the reverse way.
+
 
 
 % The reason for this is that  the entangling operation can be written as
@@ -262,8 +274,8 @@ As discussed in Ref. \cite{byrnes2013fractality}, this produces a type of entang
 For a chain of $ M $ ensembles, the wavefunction after the entangling gate is
 %
 \begin{multline}
-|\psi_M \rangle=\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{k_1,k_3,\ldots,k_{M-1}=0}^{N} \left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
-\times | k_1 \rangle_1  |\frac{e^{i(k_{1}-k_{3})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | k_3 \rangle_3
+|\psi_M \rangle=\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{k_1,k_3,\ldots,k_{M-1}=0}^{N} \left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) %\\ \times
+| k_1 \rangle_1  |\frac{e^{i(k_{1}-k_{3})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | k_3 \rangle_3
 |\frac{e^{i(k_{3}-k_{5})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
 \dots \otimes  | k_{M-1} \rangle_{M-1} |\frac{e^{ik_{M-1}t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}
 \label{evenpsiM}
@@ -280,8 +292,8 @@ For a chain of $ M $ ensembles, the wavefunction after the entangling gate is
 for even $ M $. We have
 %
 \begin{multline}
-| \psi_M \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N}\left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) \\
-\times | k_1 \rangle_1  |\frac{e^{i(k_{1} - k_{3})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | k_3 \rangle_3
+| \psi_M \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N}\left( \prod_{i \in \text{odd}} \sqrt{ C^{k_i}_{N}}  \right) %\\ \times
+| k_1 \rangle_1  |\frac{e^{i(k_{1} - k_{3})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | k_3 \rangle_3
 |\frac{e^{i(k_{3} - k_{5})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
 \dots \otimes |\frac{e^{i(k_{M-2} - k_{M})t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M-1} | k_{M} \rangle_{M}
 \label{oddpsiM}
@@ -338,11 +350,11 @@ which is an unnormalized state.  Here we wrote the full set of measurement outco
 
 The final unnormalized state after all the measurements is
 %
-\begin{multline}
+\begin{equation}
 | \Psi_{\vec{q}} \rangle =\frac{1}{\sqrt{2^{\frac{MN}{2}}}}\sum_{ k_1, k_3, \dots, k_{M-1}  = 0}^{N}  \sqrt{ C^{k_1}_{N}} \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right)
-  \\ \times  |k_1\rangle|\frac{e^{i k_{M-1}t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_M
+    |k_1\rangle|\frac{e^{i k_{M-1}t}}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_M
 \label{final_even}
-\end{multline}
+\end{equation}
 %
 % \begin{multline*}
 % | \Psi_{ \vec{q} } ( \xi ) \rangle
@@ -399,10 +411,10 @@ The explicit expressions for the matrix elements are
 %
 and
 %
-\begin{multline}
-\langle q|^{(x)} | k\rangle=\frac{1}{\sqrt{q!(N-q)!2^N}}\sum^q_{l=0}\sum^{N-q}_{m=0}C^l_q C^m_{N-q}\\
+\begin{equation}
+\langle q|^{(x)} | k\rangle=\frac{1}{\sqrt{q!(N-q)!2^N}}\sum^q_{l=0}\sum^{N-q}_{m=0}C^l_q C^m_{N-q}
 (-1)^{N-q-m}\sqrt{(l+m)!(N-l-m)!}\delta_{k,l+m}
-\end{multline}
+\end{equation}
 %
 where $\delta_{i,j}$ is Kronecker delta \cite{byrnes2020quantum}. The probability of obtaining this outcome labeled by $ \vec{q} $ is
 %
@@ -497,7 +509,7 @@ p_{\vec{q}} = \langle \Psi_{\vec{q}} | \Psi_{\vec{q}} \rangle .
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{entanglement}
+    \includegraphics[width=0.9\columnwidth]{entanglement}
     \caption{Entanglement as measured by von Neumann entropy (\ref{entropy})  between the first and last nodes of the chain, after projecting out the intermediate ensembles. The states used are (\ref{final_even}) for even $ M $ and (\ref{final_odd}) for odd $ M $.  The measurement outcome $ q_j = N $ is used for all curves with offset angle $ \phi = 0 $.  The interaction time $ t $ is with respect to the Hamiltonian (\ref{mainham}) and different lines show various chain lengths $ M $. Each ensemble has $ N = 20 $ bosons. The dependence is mirrored from $ t \in [\pi, 2\pi ]$ with respect to the evolution from $ t \in [0, \pi] $, and thereafter is periodic in $2\pi$.}
     \label{fig:entanglement}
 \end{figure}
@@ -534,12 +546,11 @@ An important question is the performance with scaling the protocol with chain le
 
 To understand the nature of the state that is generated at the magic times,  we evaluate the fidelity with respect to the $ M = 2$ state wavefunction given by (\ref{M2psi}). The fidelity is given by
 %
-\begin{multline}
-F = \frac{| \langle  \psi_2 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}}}  = \frac{1}{2^{N(M+2)/2} p_{\vec{q}} } \\
-\times \Big| \sum_{k_1, k_3, \dots, k_{M-1} }C_N^{k_1}
+\begin{equation}
+F = \frac{| \langle  \psi_2 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}}}  = \frac{1}{2^{N(M+2)/2} p_{\vec{q}} } \Big| \sum_{k_1, k_3, \dots, k_{M-1} }C_N^{k_1}
 \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right) \left(\frac{e^{i(k_{M-1} - k_1)t }+1}{2}\right)^N \Big|^2 .
 \label{fideven}
-\end{multline}
+\end{equation}
 %
 For an odd number of nodes in Fig. \ref{fig:fidelity}, we evaluate the fidelity with respect to the $ M = 3$ state wavefunction
 %
@@ -549,9 +560,9 @@ For an odd number of nodes in Fig. \ref{fig:fidelity}, we evaluate the fidelity 
  \Omega_{N}^{(2)}  |k_1\rangle|k_3\rangle }{\sqrt{\sum_{k_1,k_3=0}^{N}  C^{k_1}_{N}  C^{k_3}_{N} | \Omega_{N}^{(2)} |^2 } } .
 \end{equation}
 %
-Explicit expressions for the fidelity are given in Appendix \ref{sec:oddMexpressions}.  The fidelity versus the interaction time is shown in Fig. \ref{fig:fidelity} for various chain lengths. We see that at the magic times the fidelity of the state is equal to 1, for all chain lengths.  This shows that the two types of states corresponding to the $ M = 2 $ state Eq. (\ref{M2psi}) the $ M = 3 $ state Eq. (\ref{ideal_odd}) can be prepared at these magic times without degradation with the length of the chain.
+Explicit expressions for the fidelity are given in Appendix \ref{sec:oddMexpressions}.  The fidelity versus the interaction time is shown in Fig. \ref{fig:fidelity} for various chain lengths. We see that at the magic times the fidelity of the state is equal to 1, for all chain lengths.   \textcolor{red}{The fidelities away from the magic times are less than 1 and tend to degrade with $ M $, considering the even and odd cases separately.} This shows that the two types of states corresponding to the $ M = 2 $ state Eq. (\ref{M2psi}) the $ M = 3 $ state Eq. (\ref{ideal_odd}) can be prepared at these magic times without degradation with the length of the chain.
 
-These results suggest that it is possible to distribute the same type of  \hl{entanglement} as that generated using the $ S^z S^z $ interaction, as long as the interaction times are in the vicinity of the magic times.  However, for this to be considered a practical protocol, we must also analyze outcomes beyond $ q_j = N $, as this is only a single measurement outcome from many.
+These results suggest that it is possible to distribute the same type of macroscopic entanglement as that generated using the $ S^z S^z $ interaction, as long as the interaction times are in the vicinity of the magic times.  However, for this to be considered a practical protocol, we must also analyze outcomes beyond $ q_j = N $, as this is only a single measurement outcome from many.
 For long chain lengths, there is an exponentially small probability of obtaining $ q_j = N $, and  would be extremely inefficient if only this was the only successful outcome.  If one simply considers other measurement outcomes we do not have the stationary entanglement property as seen in Fig. \ref{fig:entanglement}, and the particular state that is generated is dependent on the particular measurement outcome.  We now show that by modifying the measurement slightly it is possible to produce the same entanglement between the end nodes of the chain for any measurement outcome.
 
 
@@ -559,7 +570,7 @@ For long chain lengths, there is an exponentially small probability of obtaining
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{fidelity-n30}
+    \includegraphics[width=0.9\columnwidth]{fidelity-n30}
     \caption{The fidelity between the projected state $ | \Psi_{\vec{q}} \rangle  $ and the $ M = 2$ state (\ref{M2psi}) for even cases and the $ M = 3$ state (\ref{ideal_odd}) for odd cases.  Expressions for the fidelity are given by
        (\ref{fideven}) for even $ M $ and (\ref{fidelity_odd}) for odd $ M $.  The measurement outcome $ q_j = N $ is used for all curves with offset angle $ \phi = 0 $.  The interaction time $ t $ is with respect to the Hamiltonian (\ref{mainham}) and different lines show various chain lengths $ M $. Each ensemble has $ N = 20 $ bosons. }
     \label{fig:fidelity}
@@ -600,13 +611,14 @@ t_L = \frac{2\pi}{L}
 %
 where $L $ takes an integer value. We note that there are additional times that have the invariance property with $ M$, e.g. $ t = 4\pi/5 $ (see Fig. \ref{fig:fidelity}). For the simplicity and generality of the analysis we shall only consider the times (\ref{magictimes}).  For all times  $ L \in [1, \sqrt{N} ] $ the entanglement exhibits the stationary behavior.
 
-\hl{The times with fractional multiplies of $ 2 \pi  $ are special. The entanglement generated between two Bose-Einstein condensates (BECs) by a $SzSz$ interaction exhibits a rich structure that depends on whether the gate time, $\tau$, is a rational or irrational multiple of $\pi/4$. This structure arises from the periodic nature of the spin coherent states that represent the BECs on the Bloch sphere. When $\tau$ is a rational multiple of $\pi/4$, the spin coherent states align with high symmetry, leading to sharp dips in the entanglement. For example, at $\tau = \pi/4$, the entangled state is equivalent to a Bell state. The sharp dips in entanglement at rational multiples of $\pi/4$ are analogous to the devil's staircase, where a parameter exhibits a step-like behavior as a function of another parameter.  More details can be find} in Ref.  \cite{byrnes2013fractality} for the $M = 2 $ case. At these times we see that the the spin coherent states factorize as
+\textcolor{blue}{The times with fractional multiplies of $ 2 \pi  $ are special, as discussed in Ref. \cite{byrnes2013fractality}.  The entanglement generated between two large spins with a $S^z S^z$ interaction exhibits a rich structure that depends on whether the gate time $t$ is a rational or irrational multiple of $\pi/4$. This structure arises from the periodic nature of the spin coherent states on the Bloch sphere. When $t$ is a rational multiple of $\pi/4$, the spin coherent states in the superposition align with high symmetry, leading to sharp dips in the entanglement. For example, at $t = \pi/4$, the entangled state is equivalent to a Bell state consisting of spin-cat states. The sharp dips in entanglement at rational multiples of $\pi/4$ are analogous to the devil's staircase (and analogously called the devil's crevasse), where a parameter exhibits a step-like behavior as a function of another parameter.  }
+
+For the $M = 2 $ case, at the magic times we see that the the spin coherent states factorize as
 %
-\begin{align}
-&|\psi_2 (t= \frac{2\pi}{L} )  \rangle=\frac{1}{\sqrt{2^N}}\sum_{k=0}^N \sqrt{C_{N}^{k}}|k\rangle_1  |\frac{e^{2 \pi i k/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 ,  \label{firstlinepsi2} \\
-& = \frac{1}{\sqrt{2^N}} \sum_{m=0}^{L-1} \left(  \sum^N_{  \underset{  \{ k (\text{mod} L ) =m \} }{k=0} }   \sqrt{C_{N}^{k}}|k\rangle  \right)  |\frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 .
+\begin{equation}
+|\psi_2 (t= \frac{2\pi}{L} )  \rangle=\frac{1}{\sqrt{2^N}}\sum_{k=0}^N \sqrt{C_{N}^{k}}|k\rangle_1  |\frac{e^{2 \pi i k/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2  = \frac{1}{\sqrt{2^N}} \sum_{m=0}^{L-1} \left(  \sum^N_{  \underset{  \{ k (\text{mod} L ) =m \} }{k=0} }   \sqrt{C_{N}^{k}}|k\rangle  \right)  |\frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 .
 \label{M2psiv2}
-\end{align}
+\end{equation}
 %
 Here we made the replacement
 %
@@ -647,12 +659,10 @@ The $ M = 2$ state at the magic times can be written
 %
 For well-separated spin coherent states
 %
-\begin{align}
-|\langle \langle \frac{e^{2 \pi i n/L }}{\sqrt{2}},\frac{1}{\sqrt{2}} |  \frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle | & = \cos^N (n-m)\pi/L \nonumber \\
-&  \approx e^{-N (n-m)^2 \pi^2/2 L^2} \nonumber \\
-& \approx \delta_{nm}    \hspace{5mm} \text{(if $ L< \sqrt{N} $) .}
+\begin{equation}
+|\langle \langle \frac{e^{2 \pi i n/L }}{\sqrt{2}},\frac{1}{\sqrt{2}} |  \frac{e^{2 \pi i m/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle | = \cos^N (n-m)\pi/L   \approx e^{-N (n-m)^2 \pi^2/2 L^2}   \approx \delta_{nm}    \hspace{5mm} \text{(if $ L< \sqrt{N} $) .}
 \label{orthogonalscs}
-\end{align}
+\end{equation}
 %
 Hence we can consider the state (\ref{bellcat}) to be an entangled state of $ L $ terms where on the first ensemble there is a spin-cat state and on the second ensemble there is a spin coherent state at various positions on the equator of the Bloch sphere.  This fact was already noted in Ref. \cite{byrnes2013fractality} for the case $ L = 2$.
 
@@ -666,8 +676,7 @@ Hence we can consider the state (\ref{bellcat}) to be an entangled state of $ L 
 We now return to the general case of $ M $ ensembles and evaluate the quantum state at the magic times.  Using the same methods as in the previous section we obtain the wavefunction before measurement for even $ M $ as
 %
 \begin{multline}
-|\psi_M \rangle=\frac{1}{\sqrt{L^{\frac{M}{2}}}}\sum_{m_1,m_3,\ldots,m_{M-1}=0}^{L-1}  \\
-\times | {\cal C}_{m_1}  \rangle_1  |\frac{e^{2 i(m_{1}-m_{3})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | {\cal C}_{m_3} \rangle_3
+|\psi_M \rangle=\frac{1}{\sqrt{L^{\frac{M}{2}}}}\sum_{m_1,m_3,\ldots,m_{M-1}=0}^{L-1}   | {\cal C}_{m_1}  \rangle_1  |\frac{e^{2 i(m_{1}-m_{3})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | {\cal C}_{m_3} \rangle_3
 |\frac{e^{2 i(m_{3}-m_{5})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
 \dots \otimes  | {\cal C}_{m_{M-1}} \rangle_{M-1} |\frac{e^{2 i m_{M-1}\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} .
 \label{evenpsiMcat}
@@ -682,10 +691,10 @@ simplicity obtaining the outcome
 %
 and assume that $L < \sqrt{N} $ such that the spin coherent states are approximately orthogonal as in (\ref{orthogonalscs}).  Then this enforces $ m_1 = m_3 = \dots = m_{M-1} $ for even $ M $.  The resulting state for even $ M $ is approximately
 %
-\begin{align}
-\bigotimes_{j=2,4,\dots M-2} |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
+\begin{equation}
+\bigotimes_{j=2,4,\dots M-2} |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  |\psi_M \rangle \propto
 \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m}  \rangle_3 \dots | {\cal C}_{m}  \rangle_{M-1} |\frac{e^{2 i m \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} ,
-\end{align}
+\end{equation}
 %
 which is valid for $ N \gg 1 $.
 This correlates all the remaining ensembles, in particular the first and last ensemble such that they have the same label $ m $.
@@ -698,11 +707,10 @@ Now looking at the remaining intermediate ensembles, the spin-cat states can be 
 %
 where only the $ n = 0 $ term in (\ref{invfouriercat}) contributes for well-separated spin coherent states.  The correlations between the first and last ensembles are hence preserved and we obtain
 %
-\begin{align}
- \bigotimes_{j=2}^{M-1} & |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  | \psi_M \rangle \propto \nonumber \\
-& \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 |\frac{e^{2 i m \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  ,
+\begin{equation}
+ \bigotimes_{j=2}^{M-1}  |q= N \rangle_j^{(x)} \langle q = N |_j^{(x)}  | \psi_M \rangle \propto   \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 |\frac{e^{2 i m \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  ,
 \label{projideal}
-\end{align}
+\end{equation}
 %
 which is valid for $ N \gg 1 $.
 This is precisely the same quantum state as (\ref{bellcat}).  This is obtained for arbitrary chain length $ M $.   This explains the invariance property of the entanglement and fidelity observed in Figs. \ref{fig:entanglement} and \ref{fig:fidelity} for the even case.
@@ -716,10 +724,10 @@ For odd $ M $, we can use the same manipulations to obtain
 %
 This is the same state as (\ref{ideal_odd}) which can be written as
 %
-\begin{align}
-| \Psi_N^{(M=3)}  \rangle & \approx  \frac{1}{\sqrt{L}} \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m}  \rangle_{3} , \\
-& =  \frac{1}{\sqrt{L}} \sum_{n=0}^{L-1} |\frac{e^{2 i n \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{1} |\frac{e^{-2 i n \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{3}
-\end{align}
+\begin{equation}
+| \Psi_N^{(M=3)}  \rangle  \approx  \frac{1}{\sqrt{L}} \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m}  \rangle_{3}
+=  \frac{1}{\sqrt{L}} \sum_{n=0}^{L-1} |\frac{e^{2 i n \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{1} |\frac{e^{-2 i n \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{3}
+\end{equation}
 %
 which is valid for $ N \gg 1 $.
 
@@ -773,7 +781,7 @@ where the spin coherent state is labeled by $ \bar{n} \in [0, L-1] $. For a part
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{measurement}
+    \includegraphics[width=0.8\columnwidth]{measurement}
     \caption{Visualization and measurement of a spin-cat state. (a)(b) Visualization of the spin-cat states (\ref{invfouriercat}) and (\ref{rotatedspincat}) respectively. Figures are plotted by centering a Gaussian $ e^{- N[ (\langle S^x \rangle - \cos \theta)^2 + (\langle S^y \rangle - \sin \theta)^2]/4} $, which is the Q-function distribution for a spin coherent state.  (c)(d) The probability distribution (\ref{probcat}) for $ \phi = 0, \pi/2L $ respectively.  For all plots $ L = 4, N = 100 $ is used.  }
     \label{fig:measurement}
 \end{figure}
@@ -811,12 +819,12 @@ Using the technique in the previous section, we may now examine the remaining pr
 %
 The state is then
 %
-\begin{align}
-& \bigotimes_{j=2,4,\dots M-2} |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
-& \sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_2}  \rangle_3 | {\cal C}_{m - \bar{m}_2 - \bar{m}_4}  \rangle_5 \dots | {\cal C}_{m - \bar{m}_{\text{even}}}  \rangle_{M-1} \nonumber \\
- & \otimes |\frac{e^{2 i (m+ \bar{m}_{\text{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  .
+\begin{equation}
+ \bigotimes_{j=2,4,\dots M-2} |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \nonumber
+\sum_{m=0}^{L-1} | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_2}  \rangle_3 | {\cal C}_{m - \bar{m}_2 - \bar{m}_4}  \rangle_5 \dots | {\cal C}_{m - \bar{m}_{\text{even}}}  \rangle_{M-1} \nonumber
+  |\frac{e^{2 i (m+ \bar{m}_{\text{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M}  .
  \label{evenprojectedpsi}
-\end{align}
+\end{equation}
 %
 where we defined
 %
@@ -828,9 +836,8 @@ where we defined
 This correlates the first and last ensemble up to an offset in $ m $. In (\ref{evenprojectedpsi}), the proportionality factor is
 %
 \begin{align}
-& \frac{1}{\sqrt{L^{M/2}}} \prod_{j=2,4,\dots, M-2} \langle q_j|^{(x)} | \frac{e^{2i (m_{j-1} - m_{j+1} ) \pi/L + i \phi }}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle \nonumber \\
-& = \frac{e^{iN \bar{m}_\text{even} \pi /L + iN \phi/2} }{\sqrt{L^{M/2}}} \nonumber \\
-& \times \prod_{j=2}^{M-2}  \sqrt{C_N^{q_j}} \cos^{q_j} ( \frac{\bar{m}_j \pi}{L} + \frac{\phi}{2} )\sin^{N-q_j} ( \frac{\bar{m}_j \pi}{L} + \frac{\phi}{2} )
+& \frac{1}{\sqrt{L^{M/2}}} \prod_{j=2,4,\dots, M-2} \langle q_j|^{(x)} | \frac{e^{2i (m_{j-1} - m_{j+1} ) \pi/L + i \phi }}{\sqrt{2}}, \frac{1}{\sqrt{2}} \rangle \rangle\nonumber \\
+& = \frac{e^{iN \bar{m}_\text{even} \pi /L + iN \phi/2} }{\sqrt{L^{M/2}}} \prod_{j=2}^{M-2}  \sqrt{C_N^{q_j}} \cos^{q_j} ( \frac{\bar{m}_j \pi}{L} + \frac{\phi}{2} )\sin^{N-q_j} ( \frac{\bar{m}_j \pi}{L} + \frac{\phi}{2} )
 \end{align}
 %
 which has no dependence on $ m $ hence does not affect the wavefunction.
@@ -840,8 +847,7 @@ Measurement of the odd numbered intermediate ensembles will give factors
 \begin{align}
 \langle q|^{(x)} | {\cal C}_m \rangle & = \frac{1}{\sqrt{L}} \sum_{n=0}^{L-1} e^{2 \pi i nm/L }
 \langle q|^{(x)}  | \frac{ e^{-2 \pi i n/L + i \phi}}{\sqrt{2}}, \frac{ 1}{\sqrt{2}} \rangle \rangle \nonumber \\
-& \approx \frac{1}{\sqrt{L}} e^{i \pi \bar{n} (2m - N)/L + i \phi N/2 } \sqrt{C_N^{q}} \nonumber \\
-& \times \cos^{q} ( \frac{\bar{n} \pi}{L} - \frac{\phi}{2} )\sin^{N-q_j} ( \frac{\bar{n} \pi}{L} - \frac{\phi}{2} )
+& \approx \frac{1}{\sqrt{L}} e^{i \pi \bar{n} (2m - N)/L + i \phi N/2 } \sqrt{C_N^{q}}  \cos^{q} ( \frac{\bar{n} \pi}{L} - \frac{\phi}{2} )\sin^{N-q_j} ( \frac{\bar{n} \pi}{L} - \frac{\phi}{2} )
 \end{align}
 %
 where in the second line we used the result of the previous section that the measurement will collapse the spin-cat state to one of the spin coherent states with label $ \bar{n} $.  Here the important factor that affects the wavefunction is the phase dependence on $ m $.  The total $ m $ dependence is given by projecting the odd sites is
@@ -849,7 +855,7 @@ where in the second line we used the result of the previous section that the mea
 \begin{align}
 \langle q_3|^{(x)} | {\cal C}_{m -\bar{m}_2} \rangle
 \langle q_5|^{(x)} | {\cal C}_{m -\bar{m}_2 - \bar{m}_4 } \rangle \dots
-\langle q_{M-1} |^{(x)} | {\cal C}_{m - \bar{m}_\text{even} } \rangle \nonumber \\
+\langle q_{M-1} |^{(x)} | {\cal C}_{m - \bar{m}_\text{even} } \rangle
 \propto e^{2 \pi i m \bar{n}_{\text{odd}}/L }
 \end{align}
 %
@@ -862,8 +868,7 @@ where
 We thus finally obtain the final state after projection
 %
 \begin{align}
-& | \Psi_{\vec{q}}^{\text{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
-& \sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\text{odd}}/L } | {\cal C}_{m}  \rangle_1 |\frac{e^{2 i (m - \bar{m}_{\text{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} .
+| \Psi_{\vec{q}}^{\text{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto  \sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\text{odd}}/L } | {\cal C}_{m}  \rangle_1 |\frac{e^{2 i (m - \bar{m}_{\text{even}})  \pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M} .
  \label{evenprojectedpsiapprox}
 \end{align}
 
@@ -879,7 +884,7 @@ We note that in Fig. \ref{fig:fidelity} perfect fidelity $ F = 1$ was obtained, 
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{finalfid}
+    \includegraphics[width=0.8\columnwidth]{finalfid}
     \caption{Comparison of the exact wavefunction (\ref{final_even}) with the approximate wavefunction (\ref{evenprojectedpsiapprox}).  (a) The wavefunction amplitude $ | \langle \Psi_{\vec{q}} | k_1, k_M \rangle | $ for $N = 10, M= 3, L = 3 $ and $ q_2 = N/2 $ for $ K = (N+1) k_1 + k_M +1 $.  The approximate wavefunction is shown as the dashed line, the exact wavefunction is shown as a solid line. (b) The fidelity $ F = |\langle \Psi_{\vec{q}} | \Psi_{\vec{q}}^{\text{approx}} \rangle |^2 $ for $ M = 3, L = 3$ for three outcomes $ q_2 = 0, N/2, N $ as marked. All cases implement the measurement scheme where the intermediate ensembles are measured using the offset angle $ \phi = \pi/2L $.
     }
     \label{fig:finalfig}
@@ -919,8 +924,29 @@ we obtain a deterministic preparation of the state (\ref{bellcat}) which is the 
 
 
 
+{\color{blue}
 
-\section{Resource Estimation}
+\section{Example experimental implementation}
+
+Up to this point, our formalism is not specific to any particular experimental implementation and could be applied to any system consisting of ensembles of qubits that are controllable with respect to their total spin and can be entangled with an $ S^z S^z $ interaction.  Here we briefly describe one possible experimental implementation that could be used to realize our proposal.
+
+The most important part of our proposal is the ability to generate $ S^z S^z $ interactions between qubit ensembles.  A specific proposal for this was discussed in Ref. \cite{pyrkov2013entanglement}, where neutral atomic ensembles in optical cavities connected by optical fibers was described.  The qubit states are defined by hyperfine ground states of atoms.  In this case of $^{87} \text{Rb}$, the operators $a$ and $b$ corresponding to the hyperfine ground states $ |F=1, m_F=-1 \rangle $  and $ | F = 2, m_F = 1 \rangle$, respectively. These states are chosen since they are clock states that are insensitive to magnetic field fluctuations.  Each atomic ensemble contains $ N $ atoms, which are can be trapped in a variety of ways, either magnetically or optically, or physically in a glass cell.  The hyperfine ground states can be controlled with radio frequency (RF) and microwave pulses \cite{bohi2009coherent}.  Measurements in the total spin basis can be performed by atom counting \cite{Hume2013,Ott2016,Qu2020}. Initialization of the states can be performed by optical pumping.  The $S^z S^z $ interaction is induced by off-resonantly detuning the optical cavities with a frequency matched to the $ F' = 1 \leftrightarrow F = 2 $ transition, for example.  The cavities are then interconnected via optical fibers. These types of optical cavities have already been realized in atom chip systems \cite{Colombe2007}.  In the absence of laser application on the atomic ensembles, the system remains static, as the cavities are off-resonant to transitions to excited states. The interaction between the two qubits can be activated or deactivated at specific nodes by applying an off-resonant laser tuned between the $ F' = 1 \leftrightarrow F = 2 $ states. This process facilitates a fourth-order virtual transition, where an atom is excited to the $ F' = 1$ state and then relaxes back to the original $F = 2$ state, emitting a virtual photon.  The photon then travels to another node, which excites another atom and transitions back to the ground state.  This produces an effective $ S^z S^z $ interaction between two atomic ensembles.
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Resource estimation}
 
 We now briefly comment on the resource costs required to execute the protocol.  {%This question is intimately connected to the experimental implementation, since the resources required depend on the way that the operations are implemented.}
 The key aspect that makes this scheme efficient is that the protocol has no dependence on $ N $, the number of qubits in the ensembles, in any of the operations that need to be performed.  Despite this, the amount of entanglement that is distributed is of order $ \log_2 N $, as can be seen in Fig. \ref{fig:entanglement}.  The reason for this is that only collective spin operations are used to control the ensembles in all the steps of the protocol.
@@ -934,19 +960,50 @@ To make this point clear, let us review the steps of the protocol and examine th
 \item Measure the intermediate qubits in the $ x $-basis (\ref{measurementop}).
 \item Based on the measurement results, apply the correction (\ref{correction3}).
 \end{enumerate}
-%
-Specifically, the initial state preparation in Step 1 can be routinely performed in atomic ensembles using optical pumping to populate one of the atomic levels, followed by a $ \pi/2 $ pulse implemented with radio frequency (RF) pulses. Both of these operations are independent of $ N $ since the optical and RF pulses applied to the ensembles are common to all atoms in the ensemble.  The unitary operations in Steps 2, 3, 5 are all in terms of total spin operators $ S^\gamma $, hence are at the ensemble level. Again these can be implemented using RF pulses on the hyperfine ground states of the atoms.  The $ S^z S^z $ interaction of Step 2 can be implemented using techniques discussed in Ref. \cite{pyrkov2013entanglement,hussain2014geometric}, where the interaction is mediated using an optical channel.  Finally, the measurement in Step 4 is performed using atomic counting of the ensemble, which is routinely performed in works such as Refs. \cite{Hume2013,Ott2016,Qu2020}.  All these operations only require operations at the ensemble level, not at the microscopic level of the individual qubits.  For this reason there is no $ N $ dependence to the scheme.  The only scaling is with respect to the chain length $ M $, where the $ M - 1 $ links of the chain must be entangled and $ M - 2$ intermediate nodes must be projected out.
 
-For the experimental implementation of our scheme, it is also important to consider the impact of decoherence effects. Decoherence in Bose-Einstein condensates (BECs) and cavity quantum electrodynamics (QED) models has been extensively studied in various works \cite{Anglin1997,Burt1997,Dalvit2000,Ferrini2011,Li2008,Li2009,Pellizzari1995,Putz2014,Sinatra1998,Schlosshauer2019}. From the general behavior that the stability of the states produced by the $ S^z S^z $ interaction is higher for shorter times \cite{byrnes2013fractality}, we expect that for the shorter magic times entanglement distribution will be resilient under decoherence. \hl{We investigated decoherence under generic dephasing process for small $M$ and $N$ (see Appendix B) and have shown that entanglement and fidelity degrade favorably for small $\gamma$.} However, given that our scheme relies on the use of excited states, it is particularly important to examine the effects of spontaneous emission, which is a significant contributor to decoherence in this case. Additionally, photon loss \hl{from the cavity and the channel} is another potential source of decoherence. A detailed analysis of these decoherence effects is beyond the scope of our current paper and will be addressed in a future study.
+\textcolor{blue}{Taking the specific example of the atomic ensembles described in the previous section, } the initial state preparation in Step 1 can be performed  using optical pumping to populate one of the atomic levels, followed by a $ \pi/2 $ pulse implemented with RF pulses. Both of these operations are independent of $ N $ since the optical and RF pulses applied to the ensembles are common to all atoms in the ensemble.  The unitary operations in Steps 2, 3, 5 are all in terms of total spin operators $ S^\gamma $, hence are at the ensemble level. Again these can be implemented using RF pulses on the hyperfine ground states of the atoms.  The $ S^z S^z $ interaction of Step 2 can be implemented using techniques discussed in Ref. \cite{pyrkov2013entanglement,hussain2014geometric}, where the interaction is mediated using an optical channel.  Finally, the measurement in Step 4 is performed using atomic counting of the ensemble, which is routinely performed in works such as Refs. \cite{Hume2013,Ott2016,Qu2020}.  All these operations only require operations at the ensemble level, not at the microscopic level of the individual qubits.  For this reason there is no $ N $ dependence to the scheme.  The only scaling is with respect to the chain length $ M $, where the $ M - 1 $ links of the chain must be entangled and $ M - 2$ intermediate nodes must be projected out.
+
+
+
+
+
+{\color{blue}
+\section{Decoherence}
+\label{sec:decoherence}
+
+In an experimental context it is also important to consider the impact of decoherence. Decoherence in Bose-Einstein condensates (BECs) and cavity quantum electrodynamics (QED) has been extensively studied in various works \cite{Anglin1997,Burt1997,Dalvit2000,Ferrini2011,Li2008,Li2009,Pellizzari1995,Putz2014,Sinatra1998,Schlosshauer2019}.  The main channels of decoherence that are relevant for the $ S^z S^z $ interaction according to the schemes introduced in Ref. \cite{pyrkov2013entanglement} are spontaneous emission due to the the use of excited states; and photon loss from the cavity and the optical fiber. These effects were studied in Ref. \cite{rosseau2014} and it was found that qualitatively similar results were obtained as applying dephasing, as studied in Ref. \cite{byrnes2013fractality}.  This connection to dephasing was more rigorously shown in Ref. \cite{ilo2024quantum}.
+
+The effect of dephasing for the $M = 2$ case was studied in Ref. \cite{byrnes2013fractality}, where the same state as (\ref{M2psi}) was studied, up to local spin transformations. It was shown that for interaction times shorter than $ t \sim 1/\sqrt{N} $, the entangled states were relatively robust against decoherence, with entanglement surviving for $ N \gg 1 $. Decoherence characteristics of the teleportation scheme were studied in \cite{pyrkov2014quantum,pyrkov2014full}, and were found to scale favorably with $ N $. We thus expect that for short entangling times, corresponding to large $ L $ magic times (\ref{magictimes}), the states will be more robust in the context of our protocol.
+
+
+
+To verify this, we have performed simulations of our protocol including dephasing. This can be described by the master equation
+%
+\begin{align}
+\frac{d \rho(t)}{dt} = -i [H(t), \rho] - \frac{\gamma}{2} \sum_{n=1}^M \left[ (S^z_n)^2 \rho
+-2 S^z_n \rho S^z_n + \rho  (S^z_n)^2 \right] .
+\label{dephasingmaster}
+\end{align}
+%
+Here $ H(t) $ refers to the Hamiltonian (\ref{mainham}), such that the dephasing acts during all entangling operations. We consider case of $M=3$, $N=3$ and perform our simulations using QuTIP \cite{qutip}.
+%All calculations are implemented on Intel(R) Core(TM) i9-9900 CPU @ 3.10GHz (8 cores / 16 threads) with 64GiB RAM.
+From Fig. \ref{decoherence} we can see that degradation of entanglement is modest as long as the gate times are shorter than $1/\gamma$.  Interestingly, at magic times ($t = \pi $), we can see that the amount of entanglement is unaffected for $\gamma$ less than $0.01$. Fidelity is not preserved even at the magic times but degrades moderately. This behavior is consistent with previous simulations in Ref. \cite{byrnes2013fractality,rosseau2014} and supports the case that macroscopic entanglement can be distributed as long as the short interaction times $t_L $ are used.
+}
+
+
+
+
+
 
 
 
 
 \section{Conclusions}
 
-We have proposed a protocol to distribute \hl{entanglement between macroscopic ensembles of qubits}, by first generating entanglement in a chain configuration then projecting out the intermediate ensembles to leave the ends of the chain entangled.  Such a protocol is non-trivial in the ensemble case since the entanglement is of a complex many-body nature, which causes the entanglement tends to diminish with longer chain lengths.  We have found ``magic'' interaction times where the entanglement can be transferred without degradation.  The nature of the states at these magic times was found due to an encoding of the entangled states in terms of generalized spin-cat states.  This allowed us to derive the explicit form of the states for any ensemble size. The final wavefunction (\ref{final_even}), which has the approximate form (\ref{evenprojectedpsiapprox}), takes a similar form to the $ M = 2 $ ensemble case, up to simple spin rotations.  By correcting for these known rotations, it allows for the deterministic preparation of the equivalent state generated by an $ S^z S^z $ interaction.
+We have proposed a protocol to distribute macroscopic
+entanglement on ensembles of qubits, by first generating entanglement in a chain configuration then projecting out the intermediate ensembles to leave the ends of the chain entangled.  Such a protocol is non-trivial in the ensemble case since the entanglement is of a complex many-body nature, which causes the entanglement tends to diminish with longer chain lengths.  We have found ``magic'' interaction times where the entanglement can be transferred without degradation.  The nature of the states at these magic times was found due to an encoding of the entangled states in terms of generalized spin-cat states.  This allowed us to derive the explicit form of the states for any ensemble size. The final wavefunction (\ref{final_even}), which has the approximate form (\ref{evenprojectedpsiapprox}), takes a similar form to the $ M = 2 $ ensemble case, up to simple spin rotations.  By correcting for these known rotations, it allows for the deterministic preparation of the equivalent state generated by an $ S^z S^z $ interaction.
 
-The amount of entanglement that is generated using this scheme is of order $ \log_2 N$, and hence is macroscopic by our definition.   The resources required to distribute this do not involve $ N $, and only depend upon $ M $, the chain length.  The reason is that only total spin operations are used in the protocol from start to finish. In this sense this has a considerable scaling advantage over preparing the entanglement microscopically.  The parallelization occurs since the resources to control an ensemble are the same as that of a qubit. The use of total spin operators means that the control pulses illuminate the entire ensemble simultaneously, which is the origin of the parallelization.  The type of entanglement that is distributed is suitable for various protocols that are based on the $ S^z S^z $ interaction, since this is ultimately the form of entanglement that is distributed.  This includes schemes such as quantum teleportation \cite{pyrkov2014quantum,pyrkov2014full}, Deutsch-Jozsa algorithm \cite{semenenko2016implementing}. Such tasks could be implemented on a distributed quantum computing platform.  The distribution of entanglement at macroscopic quantities is a task that we anticipate will become more important as the quantum internet gains more prominence.  Our protocol offers the possibility of distribute entanglement at scale, which can serve as a fundamental primitive in quantum network infrastructure.  We have only examined the ideal protocol without decoherence here, since even the noise-free case is somewhat subtle and requires some analysis.  Based on past results with the $ S^z S^z $ interaction, we expect that the entanglement distribution should be more robust at shorter magic times.  A full discussion of the scaling of the protocol in the presence of decoherence is left as future work.
+The amount of entanglement that is generated using this scheme is of order $ \log_2 N$, and hence is macroscopic by our definition.   The resources required to distribute this do not involve $ N $, and only depend upon $ M $, the chain length.  The reason is that only total spin operations are used in the protocol from start to finish. In this sense, \textcolor{red}{our protocol is far more efficient than simply repeating qubit entanglement distribution repeatedly.  In our protocol, a single run of the protocol distributes an amount of entanglement $ \log_2 N$.  This is in comparison to qubit entanglement distribution, which distributes one unit of entanglement per run. }   The parallelization occurs since the resources to control an ensemble are the same as that of a qubit. The use of total spin operators means that the control pulses illuminate the entire ensemble simultaneously, which is the origin of the parallelization.  The type of entanglement that is distributed is suitable for various protocols that are based on the $ S^z S^z $ interaction, since this is ultimately the form of entanglement that is distributed.  This includes schemes such as quantum teleportation \cite{pyrkov2014quantum,pyrkov2014full}, Deutsch-Jozsa algorithm \cite{semenenko2016implementing}. Such tasks could be implemented on a distributed quantum computing platform.  The distribution of entanglement at macroscopic quantities is a task that we anticipate will become more important as the quantum internet gains more prominence.  Our protocol offers the possibility of distribute entanglement at scale, which can serve as a fundamental primitive in quantum network infrastructure.  We have only examined the ideal protocol without decoherence here, since even the noise-free case is somewhat subtle and requires some analysis.  Based on past results with the $ S^z S^z $ interaction, we expect that the entanglement distribution should be more robust at shorter magic times.  A full discussion of the scaling of the protocol in the presence of decoherence is left as future work.
 
 
 
@@ -969,13 +1026,12 @@ A. N. P and I. D. L.  are supported by the Russian Science Foundation (grant no 
 
 
 
-\begin{figure*}[t]
+\begin{figure}[t]
     \centering
-    \includegraphics[width=1.85\columnwidth]{negativity-fidelity-decoherence-low-m3-n3.eps}
-    \caption{Decoherence of entanglement (a) and fidelity (b) under generic dephasing process for different $\gamma$ ($M=3$,$N=3$).
-    }
+    \includegraphics[width=0.9\columnwidth]{negativity-fidelity-decoherence-low-m3-n3.eps}
+    \caption{ Effect of decoherence on  (a)  entanglement and (b) fidelity  under (\ref{dephasingmaster}) for different dephasing rates $\gamma$. Common parameters are $M=3, N=3$.    }
     \label{decoherence}
-\end{figure*}
+\end{figure}
 
 
 
@@ -988,20 +1044,19 @@ Here we show the corresponding expressions for odd $ M $ for the even $ M $ expr
 
 The odd $ M $ counterpart of (\ref{final_even}) is
 %
-\begin{multline}
+\begin{equation}
 \label{final_odd}
 | \Psi_{\vec{q}} \rangle=\frac{1}{\sqrt{2^{\frac{(M+1)N}{2}}}}\sum_{k_1,k_3,\ldots,k_M=0}^{N} \sqrt{ C^{k_1}_{N}  C^{k_M}_{N} }
- \\ \times \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right) |k_1\rangle|k_M\rangle .
-\end{multline}
+  \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right) |k_1\rangle|k_M\rangle .
+\end{equation}
 %
 In order to calculate the fidelity for odd case, we take the overlap with the projected $ M = 3 $ state (\ref{ideal_odd}). The fidelity in this case equals
 %
-\begin{multline}
+\begin{equation}
 \label{fidelity_odd}
-F = \frac{| \langle  \psi_3 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}} }   =\frac{1}{2^{N(M+5)/2} p_{\vec{q}} }\\
-\times \frac{\Big|\sum_{k_1, k_3, \dots, k_M }
+F = \frac{| \langle  \psi_3 | \Psi_{\vec{q}} \rangle |^2}{p_{\vec{q}} }   =\frac{1}{2^{N(M+5)/2} p_{\vec{q}} }\frac{\Big|\sum_{k_1, k_3, \dots, k_M }
  C_N^{k_1}C_N^{k_M} {\Omega_{N}^{(2)}}^* \left( \prod_{j=2}^{M-1} \Omega_{q_j}^{(j)} \right)   \Big|^2 }{ \sum_{k_1,k_3=0}^{N}  C^{k_1}_{N}  C^{k_3}_{N} | \Omega_{N}^{(2)} |^2 }
-\end{multline}
+\end{equation}
 %
 when we measure $N$ on all  intermediate ensembles.
 
@@ -1104,8 +1159,7 @@ when we measure $N$ on all  intermediate ensembles.
 The odd $ M $ counterpart of (\ref{evenpsiMcat}) is
 %
 \begin{multline}
-| \psi_M \rangle=\frac{1}{\sqrt{L^{\frac{(M+1)}{2}}}}\sum_{m_1,m_3,\ldots,m_M=0}^{L-1} \\
-\times | {\cal C}_{m_1}  \rangle_1  |\frac{e^{2 i(m_{1}-m_{3})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | {\cal C}_{m_3} \rangle_3
+| \psi_M \rangle=\frac{1}{\sqrt{L^{\frac{(M+1)}{2}}}}\sum_{m_1,m_3,\ldots,m_M=0}^{L-1} | {\cal C}_{m_1}  \rangle_1  |\frac{e^{2 i(m_{1}-m_{3})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_2 | {\cal C}_{m_3} \rangle_3
 |\frac{e^{2 i(m_{3}-m_{5})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_4  \\
 \dots \otimes |\frac{e^{2 i(m_{M-2}-m_{M})\pi/L }}{\sqrt{2}},\frac{1}{\sqrt{2}}\rangle\rangle_{M-1} | {\cal C}_{m_{M}}  \rangle_{M} .
 \label{oddpsiMcat}
@@ -1114,8 +1168,8 @@ The odd $ M $ counterpart of (\ref{evenpsiMcat}) is
 Following similar steps to that in Sec. \ref{sec:approxwav} we get the odd $ M $ counterpart of (\ref{evenprojectedpsiapprox})
 %
 \begin{align}
-& | \Psi_{\vec{q}}^{\text{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto \nonumber \\
-& \sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\text{odd}}/L } | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_{\text{even}}}  \rangle_M  .  \label{oddprojectedpsiapprox}
+ | \Psi_{\vec{q}}^{\text{approx}} \rangle =  \bigotimes_{j=2}^{M-1}  |q_j \rangle_j^{(x)} \langle q_j |_j^{(x)}  |\psi_M \rangle \propto
+\sum_{m=0}^{L-1} e^{2 \pi i m \bar{n}_{\text{odd}}/L } | {\cal C}_{m}  \rangle_1 | {\cal C}_{m - \bar{m}_{\text{even}}}  \rangle_M  .  \label{oddprojectedpsiapprox}
 \end{align}
 %
 where for (\ref{oddprojectedpsiapprox}) we use the modified definitions
@@ -1135,26 +1189,6 @@ where for (\ref{oddprojectedpsiapprox}) we use the modified definitions
 % \end{align}
 % %
 % we obtain a deterministic preparation of the state (\ref{bellcat}) which is the aim of this study.
-
-
-\section{\hl{Decoherence}}
-\label{sec:decoherence}
-
-In any experimental situation decoherence is inevitably present, and it is an important
-question how well the entanglement distribution can be carried out under such conditions.
-
-The corresponding study for the $M = 2$ case was already performed in Ref. \cite{byrnes2013fractality}, where dephasing was applied to the same state as (\ref{M2psi}), up to local spin transformations. It was shown that the $ \tau,T = 1/\sqrt{2N} $ entangled states decay were relatively robust against decoherence. Spin coherent states also have similar decoherence characteristics to standard qubits, and have no dependence on the particle number $ N $ \cite{byrnes2012macroscopic}.Decoherence characteristics of the teleportation scheme were studied in \cite{pyrkov2014quantum,pyrkov2014full}, and were found to behave favorably with $ N $. In all these schemes the behavior of the entangled states under a generic dephasing process was studied with the use of phenomenological approach. In comparison with these works here we investigated the dephasing process during the entanglement distribution with exact simulation of the master equation.
-
-
-The generic dephasing process can be described by the master equation
-%
-\begin{align}
-\frac{d \rho(t)}{dt} = -i [H(t), \rho] - \frac{\gamma}{2} \sum_{n=1}^M \left[ (S^z_n)^2 \rho
--2 S^z_n \rho S^z_n + \rho  (S^z_n)^2 \right] .
-\label{dephasingmaster}
-\end{align}
-%
-Here $ H(t) $ refers to the Hamiltonian of  Eq.\ref{mainham}.   Hence we assume that the dephasing acts during all entangling operations. We consider case of $M=3$, $N=3$. For simulations we use the well-established QuTIP library \cite{qutip}. All calculations are implemented on Intel(R) Core(TM) i9-9900 CPU @ 3.10GHz (8 cores / 16 threads) with 64GiB RAM. From Fig.\ref{decoherence} we can see that degradation of entanglement is favorable for small $\gamma$ and at  the magic times we can conservation of entanglement for $\gamma$ less than $0.01$. Fidelity is not conserved even in the magic times but degrades moderately. All this provides belief on favorable behavior under other decoherence processes.
 
 
 \bibliographystyle{MSP}
