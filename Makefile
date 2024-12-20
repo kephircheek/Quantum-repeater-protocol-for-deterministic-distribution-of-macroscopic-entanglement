@@ -2,7 +2,7 @@
 
 .PHONY: clean
 clean:
-	git clean -xf main* *converted-to.pdf
+	git clean -xf *converted-to.pdf *.blg *.log
 
 %.aux: %.tex
 	pdflatex $<
