@@ -1,0 +1,3 @@
+[submodule "code"]
+	path = code
+	url = https://github.com/kephircheek/Entanglement-of-macroscopic-qubits-with-the-use-of-quantum-optimal-control.git
