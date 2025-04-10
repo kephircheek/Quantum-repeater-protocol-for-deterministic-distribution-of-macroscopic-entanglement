@@ -6,6 +6,7 @@ clean:
 
 .PHONY: compress
 compress: clean
+	rm *.zip
 	zip -r manusript.zip . -x "Makefile"
 
 %.aux: %.tex
